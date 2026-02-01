@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="top-wrapper">
+<div class="tab-wrapper">
     <div class="tab-switch">
         <!-- tab state -->
         <input type="radio" id="tab-recommend" name="TAB" checked>
@@ -20,28 +20,36 @@
         <!-- tab contents -->
         <div class="tab-contents">
             <section class="tab-content" id="content-recommend">
-                <div class="content-wrapper">
-                    <!-- foreachで画像と商品名を表示：すべて -->
-                    <div class="items">
-                        <img src="" alt="">
-                        <p>商品名</p>
+                <div class="items">
+                    <!-- foreachで画像と商品名を表示：おすすめ -->
+                    <div class="item">
+                        <img src="" alt="商品画像" class="item__img">
+                        <p class="item__name">商品名</p>
                     </div>
-                    <div class="items">
-                        <img src="" alt="">
-                        <p>商品名</p>
+                    <div class="item">
+                        <img src="" alt="商品画像" class="item__img">
+                        <p class="item__name">商品名</p>
                     </div>
-                    <div class="items">
-                        <img src="" alt="">
-                        <p>商品名</p>
+                    <div class="item">
+                        <img src="" alt="商品画像" class="item__img">
+                        <p class="item__name">商品名</p>
+                    </div>
+                    <div class="item">
+                        <img src="" alt="商品画像" class="item__img">
+                        <p class="item__name">商品名</p>
+                    </div>
+                    <div class="item">
+                        <img src="" alt="商品画像" class="item__img">
+                        <p class="item__name">商品名</p>
                     </div>
                 </div>
             </section>
             <section class="tab-content" id="content-my-list">
-                <div class="content-wrapper">
+                <div class="items">
                     <!-- foreachで画像と商品名を表示：いいねのみ -->
-                    <div class="items">
-                        <img src="" alt="">
-                        <p>商品名</p>
+                    <div class="item">
+                        <img src="" alt="商品画像" class="item__img">
+                        <p class="item__name">商品名</p>
                     </div>
                 </div>
             </section>

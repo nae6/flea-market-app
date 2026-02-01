@@ -1,4 +1,48 @@
-.top-wrapper {
+/* profile header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 20%;
+}
+
+.profile-header__left {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ddd;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-edit {
+    padding: 8px 16px;
+    border: 1px solid #f55;
+    border-radius: 8px;
+    color: #f55;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* tab wrapper */
+.tab-wrapper {
     padding: 0 40px;
 }
 
@@ -30,13 +74,13 @@
 .tab {
     cursor: pointer;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     color: #6b6b6b;
     padding: 6px;
 }
 
-#tab-recommend:checked~.tab-header label[for="tab-recommend"],
-#tab-my-list:checked~.tab-header label[for="tab-my-list"] {
+#tab-sell:checked~.tab-header label[for="tab-sell"],
+#tab-buy:checked~.tab-header label[for="tab-buy"] {
     color: #f55;
 }
 
@@ -45,25 +89,27 @@
     margin-top: 50px;
 }
 
-#tab-recommend:checked~.tab-contents section[id="content-recommend"],
-#tab-my-list:checked~.tab-contents section[id="content-my-list"] {
+#tab-sell:checked~.tab-contents section[id="content-sell"],
+#tab-buy:checked~.tab-contents section[id="content-buy"]{
     display: block;
 }
 
 /* tab contents */
-.content-wrapper {
-    display: flex;
-    flex-wrap: wrap;
+.items{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px;
-    justify-content: flex-start;
 }
 
-.items img {
-    width: 200px;
-    height: 200px;
-    background-color: #d2d2d2;
+.item__img {
+    aspect-ratio: 1 / 1;
+    background: #d2d2d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
-.items p {
+.item p {
     margin: 5px 0;
 }
