@@ -13,7 +13,7 @@
         <div class="form__group">
             <label class="form__label">メールアドレス</label>
             <div class="form__content">
-                <input type="email" name="email" value="">
+                <input type="email" name="email" value="{{ old('email') }}">
             </div>
             <p class="form__error">error message</p>
         </div>
