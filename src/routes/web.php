@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/items/index', function () {
-    return view('items.index');
+Route::get('/items/show', function () {
+    return view('items.show');
 });
