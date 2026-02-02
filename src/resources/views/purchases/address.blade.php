@@ -1,7 +1,7 @@
 @extends('layouts.common')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/purchases.css') }}">
+<link rel="stylesheet" href="{{ asset('css/address.css') }}">
 @endsection
 
 @section('page_title', '住所の変更')
