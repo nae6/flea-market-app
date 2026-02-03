@@ -17,12 +17,13 @@ Laravelで作成したフリマアプリです。
 
 ## 使用技術
 
-- PHP 8.0
-- Laravel 10.x
-- MySQL 8.0
-- Docker Compose
-- Laravel Fortify（認証）
-- PHPUnit（一部機能）
+- PHP: 8.4.17
+- Laravel: 12.49.0
+- DB: MySQL
+- MySQL: 8.0
+- nginx: 1.28.1
+- View: Blade
+- Docker / Docker Compose
 
 ---
 
@@ -80,9 +81,47 @@ Laravelで作成したフリマアプリです。
 
 ## 環境構築
 
+### 1. リポジトリをクローン
 ```bash
-git clone https://github.com/ユーザー名/flea-market-app.git
+git clone
 cd flea-market-app
-docker-compose up -d
-docker-compose exec php composer install
-docker-compose exec php php artisan migrate
+```
+
+### 2. Dockerビルド
+```bash
+docker compose up -d --build
+```
+
+### 3. Laravel環境構築
+
+#### 1. PHPコンテナに入る
+```bash
+docker compose exec php bash
+```
+
+#### 2. Laravelパッケージのインストール
+```bash
+composer install
+```
+
+#### 3. .env作成
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+.envを以下のように設定してください
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=laravel_user
+DB_PASSWORD=laravel_pass
+```
+
+#### 4. データベース初期化
+```bash
+php artisan migrate
+php artisan db:seed
+```
