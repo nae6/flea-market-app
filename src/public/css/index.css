@@ -35,19 +35,8 @@
     padding: 6px;
 }
 
-#tab-recommend:checked~.tab-header label[for="tab-recommend"],
-#tab-my-list:checked~.tab-header label[for="tab-my-list"] {
+.active {
     color: #f55;
-}
-
-.tab-content {
-    display: none;
-    margin-top: 50px;
-}
-
-#tab-recommend:checked~.tab-contents section[id="content-recommend"],
-#tab-my-list:checked~.tab-contents section[id="content-my-list"] {
-    display: block;
 }
 
 /* tab contents */
