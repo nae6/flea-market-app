@@ -13,9 +13,27 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <div>
-                <a href="/" class="header__logo">COACHTECH</a>
-            </div>
+            <a href="/" class="header__logo">
+                <img src="{{ asset('images/header_logo.png') }}" alt="coachtech logo">
+            </a>
+            <!-- register/loginでは表示なしにする -->
+            @if (!request()->routeIs('login', 'register'))
+            <form action="" method="GET" class="header__search">
+                <input type="text" name="keyword" value="" placeholder="なにをお探しですか？" class="search__input">
+            </form>
+            <nav class="header__nav">
+                @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit">ログアウト</button>
+                </form>
+                @else
+                <a href="{{ route('login') }}" class="nav_link">ログイン</a>
+                @endauth
+                <a href="{{ route('mypage') }}" class="nav_link">マイページ</a>
+                <a href="{{ route('sell') }}">出品</a>
+            </nav>
+            @endif
         </div>
     </header>
 
