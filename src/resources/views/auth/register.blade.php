@@ -8,42 +8,50 @@
 
 @section('content')
 <div class="auth-form">
-    <form class="form" action="" method="" novalidate>
+    <form class="form" action="/register" method="POST" novalidate>
         @csrf
         <div class="form__group">
             <label class="form__label">ユーザー名</label>
             <div class="form__content">
-                <input type="text" name="user_name" value="{{ old('user_name') }}">
+                <input type="text" name="name" value="{{ old('name') }}">
             </div>
-            <p class="form__error">error message</p>
+            @error('name')
+            <p class="form__error">{{ $message }}</p>
+            @enderror
         </div>
         <div class="form__group">
             <label class="form__label">メールアドレス</label>
             <div class="form__content">
                 <input type="email" name="email" value="{{ old('email') }}">
             </div>
-            <p class="form__error">error message</p>
+            @error('email')
+            <p class="form__error">{{ $message }}</p>
+            @enderror
         </div>
         <div class="form__group">
             <label class="form__label">パスワード</label>
             <div class="form__content">
                 <input type="password" name="password">
             </div>
-            <p class="form__error">error message</p>
+            @error('password')
+            <p class="form__error">{{ $message }}</p>
+            @enderror
         </div>
         <div class="form__group">
             <label class="form__label">確認用パスワード</label>
             <div class="form__content">
                 <input type="password" name="password_confirmation">
             </div>
-            <p class="form__error">error message</p>
+            @error('password_confirmation')
+            <p class="form__error">{{ $message }}</p>
+            @enderror
         </div>
         <div class="form__btn">
             <button class="form__btn-submit" type="submit">登録する</button>
         </div>
     </form>
     <div class="auth__link">
-        <a class="link" href="/auth/login">ログインはこちら</a>
+        <a class="link" href="{{ route('login') }}">ログインはこちら</a>
     </div>
 </div>
 @endsection
