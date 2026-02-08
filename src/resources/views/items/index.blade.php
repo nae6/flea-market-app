@@ -6,39 +6,31 @@
 
 @section('content')
 <div class="tab-wrapper">
-    <div class="tab-switch">
-        <!-- tab state -->
-        <input type="radio" id="recommend" name="TAB" checked>
-        <input type="radio" id="my-list" name="TAB">
-
-        <!-- tab header -->
-        <div class="tab-header">
-            <a href="{{ route('/', ['tab' => 'tab1']) }}" class="tab">おすすめ</a>
-            <a href="{{ route('/?tab=mylist', ['tab' => 'tab2']) }}" class="tab">マイリスト</a>
+    <div class="tab">
+        <a href="{{ request()->fullUrlWithQuery(['tab' => null]) }}" class="tab__item {{ $activeTab === 'recommend' ? 'active' : '' }}">おすすめ</a>
+        <a href="{{ request()->fullUrlWithQuery(['tab' => 'mylist']) }}" class="tab__item {{ $activeTab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+    </div>
+    <div class="tab__content">
+        <div class="items  {{ $activeTab === 'recommend' ? 'is-active' : '' }}">
+            <!-- forelseで表示 -->
+            <div class="item__card">
+                <img src="" alt="">
+                <p class="item__name">name</p>
+            </div>
         </div>
-
-        <!-- tab contents -->
-        <div class="tab-contents">
-            @if($activeTab === 'tab1')
-            <section class="tab-content" id="content-recommend">
-                <div class="items">
-                    <!-- foreachで画像と商品名を表示：おすすめ -->
-                    <div class="item">
-                        <img src="" alt="商品画像" class="item__img">
-                        <p class="item__name">商品名</p>
-                    </div>
-                </div>
-            </section>
-            @elseif($activeTab === 'tab2')
-            <section class="tab-content" id="content-my-list">
-                <div class="items">
-                    <!-- foreachで画像と商品名を表示：いいねのみ -->
-                    <div class="item">
-                        <img src="" alt="商品画像" class="item__img">
-                        <p class="item__name">商品名</p>
-                    </div>
-                </div>
-            </section>
+        <div class="items {{ $activeTab === 'mylist' ? 'is-active' : '' }}">
+            @if (auth()->guest())
+            <div></div>
+            @else
+            <!-- forelseで表示 -->
+            <div class="item__card">
+                <img src="" alt="">
+                <p class="item__name">name</p>
+            </div>
+            <div class="item__card">
+                <img src="" alt="">
+                <p class="item__name">name</p>
+            </div>
             @endif
         </div>
     </div>
