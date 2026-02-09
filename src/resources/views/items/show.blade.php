@@ -41,7 +41,7 @@
             </div>
             <div class="detail__info">
                 <h3>商品の状態</h3>
-                <p>良好</p>
+                <p>{{ $item->condition_label }}</p>
             </div>
         </div>
         <div class="comment-wrapper">

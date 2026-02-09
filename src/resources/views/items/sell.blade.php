@@ -22,15 +22,12 @@
             <div class="form__group">
                 <label class="form__label">カテゴリー</label>
                 <div class="form__radio">
-                    <!-- foreachで全category表示 -->
-                    <label for="category1" class="category">
-                        <input type="radio" name="category" id="category1" value="" checked>
-                        <span>カテゴリー1</span>
+                    @foreach ($categories as $category)
+                    <label for="" class="category">
+                        <input type="checkbox" name="categories[]" value="$category->id" {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
+                        <span>{{ $category->name }}</span>
                     </label>
-                    <label for="category2" class="category">
-                        <input type="radio" name="category" id="category2" value="">
-                        <span>カテゴリー2</span>
-                    </label>
+                    @endforeach
                 </div>
                 <p class="form__error">error message</p>
             </div>
