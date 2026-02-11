@@ -60,7 +60,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 45000,
                 'condition' => 1, // 良好
                 'description' => '高性能なノートパソコン',
-                'status' => 1,
+                'status' => 2,
                 'user_id' => 2,
             ],
             [
@@ -80,7 +80,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 3500,
                 'condition' => 3,
                 'description' => 'おしゃれなショルダーバッグ',
-                'status' => 2,
+                'status' => 1,
                 'user_id' => 2,
             ],
             [
