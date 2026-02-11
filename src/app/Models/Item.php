@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
 
@@ -27,7 +28,12 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'categories_items', 'item_id', 'category_id');
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
     }
 
     /**
@@ -71,5 +77,30 @@ class Item extends Model
     public function getStatusLabelAttribute()
     {
         return self::statusLabels()[$this->status] ?? '';
+    }
+
+    /**
+     * exclude own items
+     */
+    public function scopeExcludeOwn($query)
+    {
+        if (Auth::check())
+        {
+            $query->where('user_id', '!=', Auth::id());
+        }
+
+        return $query;
+    }
+    /**
+     * search items by keyword
+     */
+    public function scopeKeyword($query, ?string $keyword)
+    {
+        if (!empty($keyword))
+        {
+            $query->where('item_name', 'like', '%' . $keyword . '%');
+        }
+
+        return $query;
     }
 }

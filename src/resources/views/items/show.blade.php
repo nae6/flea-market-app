@@ -36,8 +36,9 @@
             <div class="detail__info">
                 <!-- 選択されたカテゴリが表示される -->
                 <h3>カテゴリー</h3>
-                <p class="detail__category">洋服</p>
-                <p class="detail__category">メンズ</p>
+                @foreach ($item->categories as $category)
+                <p class="detail__category">{{ $category->category_name }}</p>
+                @endforeach
             </div>
             <div class="detail__info">
                 <h3>商品の状態</h3>
