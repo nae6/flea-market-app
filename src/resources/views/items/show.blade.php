@@ -7,34 +7,38 @@
 @section('content')
 <div class="detail">
     <div class="detail__img">
-        <img src="" alt="商品画像">
+        <img src="{{ asset($item->image_url) }}" alt="商品画像">
     </div>
     <div class="detail__content">
-        <h1 class="detail__title">商品名がここに入る</h1>
-        <p class="detail__brand">ブランド名</p>
-        <p class="detail__price">¥<span>47,000 </span>(税込)</p>
-        <div>
+        <h1 class="detail__title">{{ $item->item_name }}</h1>
+        <p class="detail__brand">{{ $item->brand }}</p>
+        <p class="detail__price">¥<span>{{ $item->price}}</span> (税込)</p>
+        <div class="detail__icons">
             <!-- いいねをクリックで登録・解除切り替え -->
-            <div>
-                <img src="{{ asset('icons/white-heart.svg') }}" alt="いいねアイコン" class="detail__icon">
-                <span>3</span>
-            </div>
-            <!-- コメントが増えたら表示数が増加 -->
-            <div>
-                <img src="{{ asset('icons/white-bubble.svg') }}" alt="コメントアイコン" class="detail__icon">
-                <span>1</span>
+            <form action="{{ route('items.favorite', $item) }}" method="POST" class="icons__flex">
+                @csrf
+                <button type="submit">
+                    @if($isFavorited)
+                    <img src="{{ asset('images/heart_logo_liked.png') }}" alt="いいねアイコン/liked" class="detail__icon">
+                    @else
+                    <img src="{{ asset('images/heart_logo_default.png') }}" alt="いいねアイコン/default" class="detail__icon">
+                    @endif
+                </button>
+                <span>{{ $item->favorites_count }}</span>
+            </form>
+            <div class="icons__flex">
+                <img src="{{ asset('images/bubble_logo.png') }}" alt="コメントアイコン" class="detail__icon">
+                <span>{{ $item->comments_count }}</span>
             </div>
         </div>
-        <button class="form__btn-submit">購入手続きへ</button>
+        <a href="{{ route('buy', $item) }}" class="link__btn form__btn-submit">購入手続きへ</a>
         <div class="detail__content">
             <h2>商品説明</h2>
-            <!-- 商品説明を表示する -->
-            <p>カラー：グレー<br><br>新品<br>商品の状態は良好です。傷もありません。<br><br>購入後、即日発送いたします。</p>
+            <p>{{ $item->description }}</p>
         </div>
         <div class="detail__content">
             <h2>商品の情報</h2>
             <div class="detail__info">
-                <!-- 選択されたカテゴリが表示される -->
                 <h3>カテゴリー</h3>
                 @foreach ($item->categories as $category)
                 <p class="detail__category">{{ $category->category_name }}</p>
@@ -47,19 +51,24 @@
         </div>
         <div class="comment-wrapper">
             <h2>コメント(1)</h2>
-            <!-- foreachでコメント表示 -->
+            @foreach ($item->comments as $comment)
             <div class="comment__list">
                 <div class="profile-header">
                     <div class="profile-avatar">
-                        <img src="" alt="">
+                        <img src="" alt="コメントユーザーのアイコン">
                     </div>
-                    <span class="profile-name">admin</span>
+                    <span class="profile-name">{{ $comment->user->name }}</span>
                 </div>
-                <p>こちらにコメントが入ります。</p>
+                <p>{{ $comment->content }}</p>
             </div>
-            <form action="" class="comment__form">
-                <label for="comment" class="comment__header">商品へのコメント</label>
-                <textarea name="comment"></textarea>
+            @endforeach
+            <form action="{{ route('comments.store', $item) }}" method="POST" class="comment__form">
+                @csrf
+                <label for="content" class="comment__header">商品へのコメント</label>
+                <textarea name="content"></textarea>
+                @error('content')
+                <div class="form__error">{{ $message }}</div>
+                @enderror
                 <button type="submit" class="form__btn-submit">コメントを送信する</button>
             </form>
         </div>
