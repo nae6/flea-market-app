@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\Category;
+
 
 class ItemController extends Controller
 {
@@ -14,21 +13,31 @@ class ItemController extends Controller
         $keyword = $request->input('keyword');
         $activeTab = $request->get('tab', 'recommend');
 
-        $items = Item::query()
-            ->excludeOwn()
-            ->keyword($keyword)
-            ->select('id', 'item_name', 'image_url', 'status')
-            ->latest()
-            ->get();
+        $query = Item::query()->forRecommended($keyword);
+
+        if ($activeTab === 'mylist')
+        {
+            $query->mylist(auth()->id());
+        }
+
+        $items = $query->get();
 
         return view('items.index', compact('activeTab', 'items', 'keyword'));
     }
 
     public function show(Item $item)
     {
-        $item->load('categories');
+        $item->load(['categories'])->loadCount(['favorites', 'comments']);
 
-        return view('items.show', compact('item'));
+        $isFavorited = false;
+
+        if (auth()->check())
+        {
+            $isFavorited = $item->favorites()
+                ->where('user_id', auth()->id())
+                ->exists();
+        }
+        return view('items.show', compact('item', 'isFavorited'));
     }
 
 }

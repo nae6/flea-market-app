@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
+use App\Models\Item;
+
+class CommentController extends Controller
+{
+    public function store(CommentRequest $request, Item $item)
+    {
+        $validated = $request->validated();
+
+        $item->comments()->create([
+            'user_id' => auth()->id(),
+            'content' => $validated['content'],
+        ]);
+
+        return redirect()->route('show', $item);
+    }
+
+}
