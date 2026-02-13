@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 
 class Item extends Model
 {
@@ -18,9 +19,11 @@ class Item extends Model
         'description',
         'status',
         'user_id',
-        'category_id',
     ];
 
+    /**
+     * relations
+      */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -34,6 +37,11 @@ class Item extends Model
     public function favorites()
     {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /**
@@ -102,5 +110,29 @@ class Item extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * scope for recommended
+     */
+    public function scopeForRecommended(Builder $query, ?string $keyword): Builder
+    {
+        return $query
+            ->excludeOwn()
+            ->keyword($keyword)
+            ->select(['id', 'item_name', 'image_url', 'status'])
+            ->latest();
+    }
+
+    /**
+     * scope for mylist
+     */
+    public function scopeMylist(Builder $query, int $userId): Builder
+    {
+        return $query->whereHas('favorites',
+            function (Builder $q) use ($userId)
+            {
+                $q->where('users.id', $userId);
+            });
     }
 }
