@@ -11,7 +11,7 @@ class AddressRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'zip_code' => 'required|string|regex:/^\d{3}-\d{4}$/',
+            'address' => 'required|string|max:255',
+            'building' => 'nullable',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'zip_code.required' => '郵便番号を入力してください。',
+            'zip_code.regex' => '郵便番号はハイフンありの8桁で入力してください。',
+            'address.required' => '住所を入力してください。',
+            'address.max' => '住所は255文字以内で入力してください。',
         ];
     }
 }
