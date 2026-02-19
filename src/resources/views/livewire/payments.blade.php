@@ -1,50 +1,47 @@
-@extends('layouts.common')
-
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/buy.css') }}">
-@endsection
-
-@section('content')
 <div class="buy-wrapper">
     <div class="buy__info buy__item">
-        <img src="" alt="">
+        <img src="{{ $item->image_url }}" alt="商品画像">
         <div>
-            <p class="buy__item-name">商品名</p>
-            <p class="buy__item-price">¥ 47,000</p>
+            <p class="buy__item-name">{{ $item->item_name }}</p>
+            <p class="buy__item-price">¥ {{ number_format($item->price) }}</p>
         </div>
     </div>
+
     <div class="buy__info buy__payment">
-        <p class="payment__title">支払い方法</p>
-        <select name="" id="" class="payment__select">
+        <label class="payment__title">支払い方法</label>
+        <select wire:model.live="selectPayment" name="payment_method" id="" class="payment__select">
             <option value="" disabled selected>選択してください</option>
             <option value="pay-in-store">コンビニ払い</option>
             <option value="pay-credit-card">カード支払い</option>
         </select>
     </div>
+
     <div class="buy__info buy__shipping">
         <div class="shipping">
             <p class="shipping__title">配送先</p>
-            <button>変更する</button>
+            <a href="{{ route('address', $item) }}">変更する</a>
         </div>
         <p class="shipping-address__detail">
-            〒 XXX-YYYY<br>
-            ここには住所と建物が入ります
+            〒 {{ $shipping['zip_code'] ?? optional($profile)->zip_code ?? '' }}<br>
+            {{ $shipping['address'] ?? optional($profile)->address ?? '' }} 
+            {{ $shipping['building'] ?? optional($profile)->building ?? '' }}
         </p>
     </div>
+
     <div class="buy__confirm">
         <table>
             <tr class="table__row">
                 <th>商品代金</th>
-                <td>¥ 47,000</td>
+                <td>¥ {{ number_format($item->price) }}</td>
             </tr>
             <tr class="table__row">
                 <th>支払い方法</th>
-                <td>コンビニ払い</td>
+                <td>{{ $this->selectPaymentLabel }}</td>
             </tr>
         </table>
     </div>
+
     <div class="buy__btn">
-        <button class="form__btn-submit" type="submit">購入する</button>
+        <button class="form__btn-submit" type="button">購入する</button>
     </div>
 </div>
-@endsection

@@ -14,7 +14,6 @@
         <p class="detail__brand">{{ $item->brand }}</p>
         <p class="detail__price">¥<span>{{ $item->price}}</span> (税込)</p>
         <div class="detail__icons">
-            <!-- いいねをクリックで登録・解除切り替え -->
             <form action="{{ route('items.favorite', $item) }}" method="POST" class="icons__flex">
                 @csrf
                 <button type="submit">

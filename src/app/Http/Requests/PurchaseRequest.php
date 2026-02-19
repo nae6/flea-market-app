@@ -11,7 +11,7 @@ class PurchaseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class PurchaseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'payment_method' => 'required',
+            'amount' => 'required|numeric|min:1',
         ];
     }
 }
