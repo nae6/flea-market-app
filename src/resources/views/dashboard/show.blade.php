@@ -14,7 +14,6 @@
         <p class="detail__brand">{{ $item->brand }}</p>
         <p class="detail__price">¥<span>{{ $item->price}}</span> (税込)</p>
         <div class="detail__icons">
-            <!-- いいねをクリックで登録・解除切り替え -->
             <form action="{{ route('items.favorite', $item) }}" method="POST" class="icons__flex">
                 @csrf
                 <button type="submit">
@@ -50,7 +49,7 @@
             </div>
         </div>
         <div class="comment-wrapper">
-            <h2>コメント(1)</h2>
+            <h2>コメント(<span>{{ $item->comments_count }}</span>)</h2>
             @foreach ($item->comments as $comment)
             <div class="comment__list">
                 <div class="profile-header">

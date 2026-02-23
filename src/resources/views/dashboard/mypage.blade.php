@@ -12,7 +12,7 @@
         </div>
         <p class="profile-name">ユーザー名</p>
     </div>
-    <a href="" class="profile-edit">プロフィールを編集</a>
+    <a href="{{ route('profile.edit') }}" class="profile-edit">プロフィールを編集</a>
 </div>
 <div class="tab-wrapper">
     <div class="tab-switch">
