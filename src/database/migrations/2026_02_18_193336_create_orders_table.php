@@ -13,16 +13,20 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
+            $table->foreignId('buyer_id')
+                ->constrained('users')
                 ->restrictOnDelete();
             $table->foreignId('item_id')
                 ->constrained()
                 ->restrictOnDelete();
             $table->string('payment_method');
+            $table->string('stripe_checkout_session_id')->nullable()->unique();
+            $table->string('stripe_payment_intent_id')->nullable()->unique();
+            $table->unsignedBigInteger('amount');
             $table->string('zip_code', 8);
             $table->string('address');
             $table->string('building')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

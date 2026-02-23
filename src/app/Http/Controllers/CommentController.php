@@ -17,7 +17,7 @@ class CommentController extends Controller
             'content' => $validated['content'],
         ]);
 
-        return redirect()->route('show', $item);
+        return redirect()->route('items.show', $item);
     }
 
 }

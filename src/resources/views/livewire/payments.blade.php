@@ -9,10 +9,10 @@
 
     <div class="buy__info buy__payment">
         <label class="payment__title">支払い方法</label>
-        <select wire:model.live="selectPayment" name="payment_method" id="" class="payment__select">
-            <option value="" disabled selected>選択してください</option>
-            <option value="pay-in-store">コンビニ払い</option>
-            <option value="pay-credit-card">カード支払い</option>
+        <select wire:model.live="selectPayment" name="payment_method" class="payment__select">
+            <option value="" disabled>選択してください</option>
+            <option value="konbini">コンビニ払い</option>
+            <option value="card">カード支払い</option>
         </select>
     </div>
 
@@ -22,10 +22,13 @@
             <a href="{{ route('address', $item) }}">変更する</a>
         </div>
         <p class="shipping-address__detail">
-            〒 {{ $shipping['zip_code'] ?? optional($profile)->zip_code ?? '' }}<br>
-            {{ $shipping['address'] ?? optional($profile)->address ?? '' }} 
-            {{ $shipping['building'] ?? optional($profile)->building ?? '' }}
+            〒 {{ session('shipping.zip_code') ?? optional($profile)->zip_code ?? '' }}<br>
+            {{ session('shipping.address') ?? optional($profile)->address ?? '' }} 
+            {{ session('shipping.building') ?? optional($profile)->building ?? '' }}
         </p>
+        @error('shipping')
+        <p class="form__error">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="buy__confirm">
@@ -36,12 +39,19 @@
             </tr>
             <tr class="table__row">
                 <th>支払い方法</th>
-                <td>{{ $this->selectPaymentLabel }}</td>
+                <td>
+                    {{ $this->selectPaymentLabel }}
+                    @error('payment_method')
+                    <p class="form__error">{{ $message }}</p>
+                    @enderror
+                </td>
             </tr>
         </table>
     </div>
 
-    <div class="buy__btn">
-        <button class="form__btn-submit" type="button">購入する</button>
-    </div>
+    <form action="{{ route('checkout', $item) }}" method="POST" class="buy__btn">
+        @csrf
+        <input type="hidden" name="payment_method" value="{{ $selectPayment }}">
+        <button class="form__btn-submit" type="submit">購入する</button>
+    </form>
 </div>

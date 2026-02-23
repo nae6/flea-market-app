@@ -14,8 +14,8 @@ class Payments extends Component
     public function getSelectPaymentLabelProperty(): string
     {
         return match ($this->selectPayment) {
-            'pay-in-store' => 'コンビニ払い',
-            'pay-credit-card' => 'カード支払い',
+            'konbini' => 'コンビニ払い',
+            'card' => 'カード支払い',
             default => '未選択',
         };
     }

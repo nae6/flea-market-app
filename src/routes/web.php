@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Livewire\Payments;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ProfileController;
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
 /**
@@ -26,29 +27,28 @@ Route::middleware('auth')->group(function()
         ->name('comments.store');
     Route::post('/item/{item}/favorite', [FavoriteController::class, 'toggle'])
         ->name('items.favorite');
+
     Route::get('/purchase/{item}', [PurchaseController::class, 'index'])
         ->name('buy');
+    Route::post('/purchase/{item}', [PurchaseController::class, 'checkout'])
+        ->name('checkout');
+
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'create'])
         ->name('address');
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'confirm'])
         ->name('address.confirm');
-    Route::post('/purchase/{item}', [PurchaseController::class, 'store'])
-        ->name('purchase.store');
 
+    Route::get('/mypage', [ProfileController::class, 'index'])
+        ->name('mypage');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::post('/mypage/profile', [ProfileController::class, 'store'])
+        ->name('profile.store');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
 
     Route::get('/sell', function () {
     return view('items.sell');
     })->name('sell');
-    Route::get('/mypage', function () {
-        return view('mypage');
-    })->name('mypage');
-    Route::get('/mypage/profile', function () {
-        return view('mypage.profile');
-    });
 
 });
-
-/**
- * Stripe Webhook
- */
-Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
