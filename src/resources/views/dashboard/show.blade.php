@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="comment-wrapper">
-            <h2>コメント(1)</h2>
+            <h2>コメント(<span>{{ $item->comments_count }}</span>)</h2>
             @foreach ($item->comments as $comment)
             <div class="comment__list">
                 <div class="profile-header">
