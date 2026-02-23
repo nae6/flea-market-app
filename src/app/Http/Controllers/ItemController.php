@@ -22,7 +22,7 @@ class ItemController extends Controller
 
         $items = $query->get();
 
-        return view('items.index', compact('activeTab', 'items', 'keyword'));
+        return view('dashboard.index', compact('activeTab', 'items', 'keyword'));
     }
 
     public function show(Item $item)
@@ -37,7 +37,7 @@ class ItemController extends Controller
                 ->where('user_id', auth()->id())
                 ->exists();
         }
-        return view('items.show', compact('item', 'isFavorited'));
+        return view('dashboard.show', compact('item', 'isFavorited'));
     }
 
 }

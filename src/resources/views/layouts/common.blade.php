@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     @yield('css')
+    @yield('script')
 </head>
 
 <body>
@@ -45,6 +46,7 @@
             @yield('content')
         </div>
     </main>
+    @livewireScripts
 </body>
 
 </html>
