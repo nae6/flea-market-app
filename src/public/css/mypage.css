@@ -44,13 +44,10 @@
 /* tab wrapper */
 .tab-wrapper {
     padding: 0 40px;
+    margin-bottom: 100px;
 }
 
-.tab-switch>input[type="radio"] {
-    display: none;
-}
-
-.tab-header {
+.tab {
     display: flex;
     gap: 48px;
     justify-content: flex-start;
@@ -60,56 +57,59 @@
     position: relative;
 }
 
-.tab-header::after {
+.tab::after {
     content: "";
     position: absolute;
-    left: 50%;
+    left: -80px;
     bottom: 0;
-    transform: translateX(-50%);
-    width: 100vw;
+    width: calc(100% + 160px);
     height: 2px;
-    background: #6b6b6b;
+    background: #5f5f5f;
 }
 
-.tab {
+.tab__item {
     cursor: pointer;
+    text-decoration: none;
     font-weight: 700;
-    font-size: 16px;
-    color: #6b6b6b;
-    padding: 6px;
+    font-size: 18px;
+    color: #5f5f5f;
+    padding: 10px;
 }
 
-#tab-sell:checked~.tab-header label[for="tab-sell"],
-#tab-buy:checked~.tab-header label[for="tab-buy"] {
-    color: #f55;
-}
-
-.tab-content {
-    display: none;
-    margin-top: 50px;
-}
-
-#tab-sell:checked~.tab-contents section[id="content-sell"],
-#tab-buy:checked~.tab-contents section[id="content-buy"]{
-    display: block;
+.active {
+    color: #ff0000;
 }
 
 /* tab contents */
-.items{
-    display: grid;
+.items {
+    margin-top: 50px;
+    display: none;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
 }
 
-.item__img {
-    aspect-ratio: 1 / 1;
-    background: #d2d2d2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.items.is-active {
+    display: grid;
 }
 
-.item p {
+.link__btn {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+}
+
+.item__card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #d2d2d2;
+    object-fit: cover;
+    display: block;
+    outline: none;
+}
+
+.item__name {
     margin: 5px 0;
+    font-size: 16px;
 }
