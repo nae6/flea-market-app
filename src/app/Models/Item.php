@@ -135,4 +135,16 @@ class Item extends Model
                 $q->where('users.id', $userId);
             });
     }
+
+    /**
+     * scope for buy
+     */
+    public function scopeBuy(Builder $query, int $userId): Builder
+    {
+        return $query->whereHas('favorites',
+            function (Builder $q) use ($userId)
+            {
+                $q->where('users.id', $userId);
+            });
+    }
 }
