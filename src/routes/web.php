@@ -32,7 +32,6 @@ Route::middleware('auth')->group(function()
         ->name('buy');
     Route::post('/purchase/{item}', [PurchaseController::class, 'checkout'])
         ->name('checkout');
-
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'create'])
         ->name('address');
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'confirm'])
@@ -42,11 +41,11 @@ Route::middleware('auth')->group(function()
         ->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
+
     Route::post('/mypage/profile', [ProfileController::class, 'store'])
         ->name('profile.store');
     Route::patch('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
-
     Route::get('/sell', function () {
     return view('items.sell');
     })->name('sell');
