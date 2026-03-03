@@ -15,9 +15,9 @@ class ItemsTableSeeder extends Seeder
         $items = [
             [
                 'item_name' => '腕時計',
-                'image_url' => '/storage/images/watch.jpg',
+                'image_url' => '/storage/items/watch.jpg',
                 'brand' => 'Rolax',
-                'price' => 15,000,
+                'price' => 15000,
                 'condition' => 1,
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'status' => 1,
@@ -25,9 +25,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'HDD',
-                'image_url' => '/storage/images/hdd.jpg',
+                'image_url' => '/storage/items/hdd.jpg',
                 'brand' => '西芝',
-                'price' => 5,000,
+                'price' => 5000,
                 'condition' => 2,
                 'description' => '高速で信頼性の高いハードディスク',
                 'status' => 1,
@@ -35,7 +35,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => '玉ねぎ3束',
-                'image_url' => '/storage/images/onion.jpg',
+                'image_url' => '/storage/items/onion.jpg',
                 'brand' => null,
                 'price' => 300,
                 'condition' => 3,
@@ -45,9 +45,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => '革靴',
-                'image_url' => '/storage/images/shoes.jpg',
+                'image_url' => '/storage/items/shoes.jpg',
                 'brand' => null,
-                'price' => 4,000,
+                'price' => 4000,
                 'condition' => 4,
                 'description' => 'クラシックなデザインの革靴',
                 'status' => 1,
@@ -55,9 +55,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'ノートPC',
-                'image_url' => '/storage/images/laptop.jpg',
+                'image_url' => '/storage/items/laptop.jpg',
                 'brand' => null,
-                'price' => 45,000,
+                'price' => 45000,
                 'condition' => 1, // 良好
                 'description' => '高性能なノートパソコン',
                 'status' => 2,
@@ -65,9 +65,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'マイク',
-                'image_url' => '/storage/images/mic.jpg',
+                'image_url' => '/storage/items/mic.jpg',
                 'brand' => null,
-                'price' => 8,000,
+                'price' => 8000,
                 'condition' => 2,
                 'description' => '高音質のレコーディング用マイク',
                 'status' => 1,
@@ -75,9 +75,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'ショルダーバッグ',
-                'image_url' => '/storage/images/bag.jpg',
+                'image_url' => '/storage/items/bag.jpg',
                 'brand' => null,
-                'price' => 3,500,
+                'price' => 3500,
                 'condition' => 3,
                 'description' => 'おしゃれなショルダーバッグ',
                 'status' => 1,
@@ -85,7 +85,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'タンブラー',
-                'image_url' => '/storage/images/tumbler.jpg',
+                'image_url' => '/storage/items/tumbler.jpg',
                 'brand' => null,
                 'price' => 500,
                 'condition' => 4,
@@ -95,9 +95,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'コーヒーミル',
-                'image_url' => '/storage/images/mill.jpg',
+                'image_url' => '/storage/items/mill.jpg',
                 'brand' => 'Starbacks',
-                'price' => 4,000,
+                'price' => 4000,
                 'condition' => 1,
                 'description' => '手動のコーヒーミル',
                 'status' => 1,
@@ -105,9 +105,9 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'メイクセット',
-                'image_url' => '/storage/images/makeup.jpg',
+                'image_url' => '/storage/items/makeup.jpg',
                 'brand' => null,
-                'price' => 2,500,
+                'price' => 2500,
                 'condition' => 2,
                 'description' => '便利なメイクアップセット',
                 'status' => 1,
