@@ -8,9 +8,9 @@
 <div class="profile-header">
     <div class="profile-header__left">
         <div class="profile-avatar">
-            <img src="{{ asset($profile->avatar_url) }}" alt="avatar">
+            <img src="{{ $profile->avatar_url ?? '' }}" alt="avatar">
         </div>
-        <p class="profile-name">{{ $profile->user_name }}</p>
+        <p class="profile-name">{{ $profile->user_name ?? $user->name }}</p>
     </div>
     <a href="{{ route('profile.edit') }}" class="profile-edit">プロフィールを編集</a>
 </div>

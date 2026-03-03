@@ -12,7 +12,7 @@
     <div class="detail__content">
         <h1 class="detail__title">{{ $item->item_name }}</h1>
         <p class="detail__brand">{{ $item->brand }}</p>
-        <p class="detail__price">¥<span>{{ $item->price}}</span> (税込)</p>
+        <p class="detail__price">¥<span>{{ number_format($item->price) }}</span> (税込)</p>
         <div class="detail__icons">
             <form action="{{ route('items.favorite', $item) }}" method="POST" class="icons__flex">
                 @csrf
