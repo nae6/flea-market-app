@@ -18,6 +18,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->unique('user_id');
             $table->string('user_name');
+            $table->string('avatar_url')->nullable();
             $table->string('zip_code');
             $table->string('address');
             $table->string('building')->nullable();

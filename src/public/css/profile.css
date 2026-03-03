@@ -1,5 +1,5 @@
 .profile-form {
-    margin: 0 auto;
+    margin: 0 auto 200px;
     padding: 30px 15px;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .form__group {
-    margin-bottom: 5px;
+    margin: 40px 0;
     width: 100%;
     text-align: left;
 }
@@ -32,16 +32,6 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-.profile-img__input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    clip-path: inset(50%);
 }
 
 .img-select {
@@ -79,6 +69,9 @@
     height: 20px;
     color: #ff0000;
     text-align: left;
+}
+.align {
+    align-self: center;
 }
 
 .form__btn {

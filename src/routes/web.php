@@ -4,10 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
-use App\Livewire\Payments;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
-use Laravel\Cashier\Http\Controllers\WebhookController;
 
 /**
  * 未認証でも閲覧可能なページ
@@ -41,13 +39,11 @@ Route::middleware('auth')->group(function()
         ->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
-
-    Route::post('/mypage/profile', [ProfileController::class, 'store'])
-        ->name('profile.store');
-    Route::patch('/profile', [ProfileController::class, 'update'])
+    Route::post('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
-    Route::get('/sell', function () {
-    return view('items.sell');
-    })->name('sell');
 
+    Route::get('/sell', [ItemController::class, 'create'])
+        ->name('sell');
+    Route::post('/sell', [ItemController::class, 'store'])
+        ->name('sell.store');
 });

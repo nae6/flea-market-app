@@ -45,9 +45,7 @@ class PurchaseController extends Controller
             abort(403, 'あなたの出品商品です');
         }
 
-        /**
-         * ユーザー情報と配送先情報
-         */
+        // ユーザー情報と配送先情報
         $profile = auth()->user()->profile;
         $shipping = session('shipping', []);
 
@@ -55,13 +53,6 @@ class PurchaseController extends Controller
         $address = $shipping['address'] ?? $profile?->address;
         $building = $shipping['building'] ?? $profile?->building;
 
-        /**
-         * Stripeの設定
-         * 1:APIキーを設定
-         * 2:Stripe決済後のリダイレクト先の設定
-         * 3:ordersテーブルに既知情報をpendingで保存
-         * 4:Checkoutセッションを作成
-         */
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $baseUrl = rtrim(config('app.url'), '/');
@@ -70,6 +61,7 @@ class PurchaseController extends Controller
 
         return DB::transaction(function () use ($request, $item, $zip_code, $address, $building, $successUrl, $cancelUrl)
         {
+            // orderの作成
             $order = Order::create([
                 'buyer_id' => auth()->id(),
                 'item_id' => $item->id,
@@ -81,6 +73,7 @@ class PurchaseController extends Controller
                 'status' => 'pending',
             ]);
 
+            // 
             $checkout_session = CheckoutSession::create([
                 'mode' => 'payment',
                 'payment_method_types' => [$request->payment_method],
@@ -104,10 +97,12 @@ class PurchaseController extends Controller
                 'cancel_url'  => $cancelUrl,
             ]);
 
+            // orderの更新
             $order->update([
                 'stripe_checkout_session_id' => $checkout_session->id,
             ]);
 
+            // 
             $item = Item::lockForUpdate()->find($order->item_id);
             if ($item && $item->status !== '1') {
                 $item->update(['status' => '2']);
