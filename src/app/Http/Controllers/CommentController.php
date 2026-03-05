@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CommentRequest;
+use App\Models\Comment;
 use App\Models\Item;
 
 class CommentController extends Controller
 {
+    /**
+     * コメントの登録
+     *
+     * @param CommentRequest $request
+     * @param Item $item
+     * @return RedirectResponse
+     */
     public function store(CommentRequest $request, Item $item)
     {
         $validated = $request->validated();

@@ -99,6 +99,7 @@ class Item extends Model
 
         return $query;
     }
+
     /**
      * search items by keyword
      */

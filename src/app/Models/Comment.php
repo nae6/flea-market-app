@@ -10,6 +10,9 @@ class Comment extends Model
 {
     protected $fillable = ['item_id', 'user_id', 'content'];
 
+    /**
+     * relations
+     */
     public function item()
     {
         return $this->belongsTo(Item::class);

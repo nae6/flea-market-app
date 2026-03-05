@@ -2,50 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
-use Stripe\Stripe;
+use App\Http\Requests\AddressRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Item;
 use Stripe\Checkout\Session as CheckoutSession;
+use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
+    /**
+     * 商品購入画面の表示
+     */
     public function index(Item $item)
     {
         return view('dashboard.purchase', compact('item'));
     }
 
+    /**
+     * 商品配送先住所の変更画面の表示
+     */
     public function create(Item $item)
     {
         return view('dashboard.address', compact('item'));
     }
 
+    /**
+     * 配送先住所を確定後、
+     * 商品購入画面に入力内容を反映して表示
+     */
     public function confirm(AddressRequest $request, Item $item)
     {
         $shipping = $request->validated();
         session(['shipping' => $shipping]);
+
         return redirect()->route('buy', $item);
     }
 
+    /**
+     * 支払い処理(stripe支払い画面へ遷移)
+     */
     public function checkout(PurchaseRequest $request, Item $item)
     {
-        /**
-         * sold購入不可
-         * my_item購入不可
-         */
-        if ($item->status === 'sold')
-        {
+        //sold, my_item購入不可
+        if ($item->status === 'sold') {
             abort(409, '売り切れです');
         }
-        if ($item->user_id === auth()->id())
-        {
+        if ($item->user_id === auth()->id()) {
             abort(403, 'あなたの出品商品です');
         }
 
-        // ユーザー情報と配送先情報
+        // ユーザー情報と配送先情報の取り出し
         $profile = auth()->user()->profile;
         $shipping = session('shipping', []);
 
@@ -59,7 +68,7 @@ class PurchaseController extends Controller
         $successUrl = $baseUrl . route('index', [], false) . '?session_id={CHECKOUT_SESSION_ID}';
         $cancelUrl  = $baseUrl . route('index', [], false);
 
-        return DB::transaction(function () use ($request, $item, $zip_code, $address, $building, $successUrl, $cancelUrl)
+        DB::transaction(function () use ($request, $item, $zip_code, $address, $building, $successUrl, $cancelUrl)
         {
             // orderの作成
             $order = Order::create([
@@ -73,16 +82,14 @@ class PurchaseController extends Controller
                 'status' => 'pending',
             ]);
 
-            // 
+            // 購入処理(stripe)
             $checkout_session = CheckoutSession::create([
                 'mode' => 'payment',
                 'payment_method_types' => [$request->payment_method],
                 'line_items' => [[
                     'price_data' => [
                         'currency' => 'jpy',
-                        'product_data' => [
-                            'name' => $item->item_name,
-                        ],
+                        'product_data' => ['name' => $item->item_name,],
                         'unit_amount' => $item->price,
                     ],
                     'quantity' => 1,
@@ -102,13 +109,13 @@ class PurchaseController extends Controller
                 'stripe_checkout_session_id' => $checkout_session->id,
             ]);
 
-            // 
+            // item statusの変更
             $item = Item::lockForUpdate()->find($order->item_id);
             if ($item && $item->status !== '1') {
                 $item->update(['status' => '2']);
             }
-
-            return redirect()->away($checkout_session->url);
         });
+
+        return redirect()->away($checkout_session->url);
     }
 }
