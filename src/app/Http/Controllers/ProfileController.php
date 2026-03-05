@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
@@ -12,12 +12,14 @@ use App\Models\Item;
 
 class ProfileController extends Controller
 {
+    /**
+     * マイページの表示
+     */
     public function index(Request $request)
     {
         $activePage = $request->get('page', 'sell');
 
-        if (!in_array($activePage, ['sell', 'buy'], true))
-        {
+        if (!in_array($activePage, ['sell', 'buy'], true)) {
             $activePage = 'sell';
         }
 
@@ -38,6 +40,9 @@ class ProfileController extends Controller
         return view('dashboard.mypage', compact('activePage', 'items', 'user'));
     }
 
+    /**
+     * プロフィール編集画面の表示
+     */
     public function edit()
     {
         $user = Auth::user();
@@ -46,20 +51,19 @@ class ProfileController extends Controller
         return view('dashboard.profile', compact('user', 'profile'));
     }
 
+    /**
+     * プロフィール内容の新規作成または更新
+     */
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
         $data = $request->validated();
-
         $profile = $user->profile;
 
-        if ($request->hasFile('avatar_url'))
-        {
+        if ($request->hasFile('avatar_url')) {
             $path = $request->file('avatar_url')->store('avatars', 'public');
 
-            if ($profile && $profile->avatar_url)
-            {
+            if ($profile && $profile->avatar_url) {
                 Storage::disk('public')->delete($profile?->avatar_url);
             }
             $data[avatar_url] = $path;
