@@ -67,7 +67,7 @@ class ProfileForm extends Component
             $this->currentAvatarUrl = $data['avatar_url'];
         }
 
-        // 一時ファイルをクリア（任意）
+        // 一時ファイルをクリア
         $this->reset('avatar');
 
         session()->flash('status', '更新しました');
