@@ -21,6 +21,9 @@ class Order extends Model
         'status',
     ];
 
+    /**
+     * relations
+     */
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');
