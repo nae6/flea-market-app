@@ -17,7 +17,7 @@
             <a href="/" class="header__logo">
                 <img src="{{ asset('images/header_logo.png') }}" alt="coachtech logo">
             </a>
-            @if (!request()->routeIs('login', 'register'))
+            @if (!request()->routeIs('login', 'register', 'verify-email'))
             <form action="{{ route('index') }}" method="GET" class="header__search">
                 <input type="search" name="keyword" value="{{ $keyword ?? '' }}" placeholder="なにをお探しですか？" class="search__input">
                 @yield('search_extra')

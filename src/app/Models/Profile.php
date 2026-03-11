@@ -15,4 +15,11 @@ class Profile extends Model
         'address',
         'building',
     ];
+
+    /**
+     * users_tableと1対1リレーション
+     */
+    public function user() {
+        return $this->belongsTo(Profile::class);
+    }
 }

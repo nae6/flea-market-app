@@ -7,7 +7,7 @@
 @section('content')
 <div class="detail">
     <div class="detail__img">
-        <img src="{{ asset($item->image_url) }}" alt="商品画像">
+        <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
     </div>
     <div class="detail__content">
         <h1 class="detail__title">{{ $item->item_name }}</h1>
@@ -45,16 +45,21 @@
             </div>
             <div class="detail__info">
                 <h3>商品の状態</h3>
-                <p>{{ $item->condition_label }}</p>
+                <p>{{ $item->condition->condition }}</p>
             </div>
         </div>
+
         <div class="comment-wrapper">
             <h2>コメント(<span>{{ $item->comments_count }}</span>)</h2>
             @foreach ($item->comments as $comment)
             <div class="comment__list">
                 <div class="profile-header">
                     <div class="profile-avatar">
-                        <img src="" alt="コメントユーザーのアイコン">
+                        @if ($avatar)
+                        <img src="{{ asset('storage/' . $avatar) }}" alt="avatar">
+                        @else
+                        <div></div>
+                        @endif
                     </div>
                     <span class="profile-name">{{ $comment->user->name }}</span>
                 </div>
