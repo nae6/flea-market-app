@@ -1,6 +1,6 @@
 <div class="buy-wrapper">
     <div class="buy__info buy__item">
-        <img src="{{ $item->image_url }}" alt="商品画像">
+        <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
         <div>
             <p class="buy__item-name">{{ $item->item_name }}</p>
             <p class="buy__item-price">¥ {{ number_format($item->price) }}</p>

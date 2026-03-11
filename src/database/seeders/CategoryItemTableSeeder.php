@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CategoriesItemsTableSeeder extends Seeder
+class CategoryItemTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -79,6 +79,6 @@ class CategoriesItemsTableSeeder extends Seeder
             ],
         ];
 
-        DB::table('categories_items')->insert($param);
+        DB::table('category_item')->insert($param);
     }
 }

@@ -14,9 +14,12 @@ class ProfileController extends Controller
 {
     /**
      * マイページの表示
+     * タブの状態を取得し、購入商品または出品商品の一覧を取得
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $activePage = $request->get('page', 'sell');
 
         if (!in_array($activePage, ['sell', 'buy'], true)) {
@@ -25,26 +28,27 @@ class ProfileController extends Controller
 
         if ($activePage === 'buy') {
             $query = Auth::user()
-                ->boughtItems()
-                ->select('items.id', 'items.item_name', 'items.image_url', 'items.status')
-                ->orderByDesc('orders.created_at');
+                ->orders()
+                ->with('item:id,item_name,image_url,status')
+                ->latest('orders.created_at');
         } else {
             $query = Auth::user()
-                ->items('id', 'item_name', 'image_url', 'status')
+                ->items()
+                ->select('items.id', 'items.item_name', 'items.image_url', 'items.status')
                 ->latest('items.created_at');
         }
 
-        $items = $query->get();
+        $goods = $query->get();
         $user = Auth::user();
+        $profile = $user->profile;
 
-        return view('dashboard.mypage', compact('activePage', 'items', 'user'));
+        return view('dashboard.mypage', compact('activePage', 'goods','user', 'profile'));
     }
 
     /**
      * プロフィール編集画面の表示
      */
-    public function edit()
-    {
+    public function edit() {
         $user = Auth::user();
         $profile = Profile::firstOrNew(['user_id' => $user->id]);
 
@@ -54,8 +58,7 @@ class ProfileController extends Controller
     /**
      * プロフィール内容の新規作成または更新
      */
-    public function update(ProfileRequest $request)
-    {
+    public function update(ProfileRequest $request) {
         $user = Auth::user();
         $data = $request->validated();
         $profile = $user->profile;
@@ -66,12 +69,12 @@ class ProfileController extends Controller
             if ($profile && $profile->avatar_url) {
                 Storage::disk('public')->delete($profile?->avatar_url);
             }
-            $data[avatar_url] = $path;
+            $data['avatar_url'] = $path;
         } else {
             unset($data['avatar_url']);
         }
 
-        $user->profile()->updateOrCreate([], $data);
+        $user->profile()->updateOrCreate(['user_id' => $user->id], $data);
 
         return redirect()->route('mypage');
     }

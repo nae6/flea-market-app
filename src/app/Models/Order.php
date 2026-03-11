@@ -22,15 +22,15 @@ class Order extends Model
     ];
 
     /**
-     * relations
+     * users_tableと1対多のリレーション
      */
-    public function buyer()
-    {
+    public function buyer() {
         return $this->belongsTo(User::class, 'buyer_id');
     }
-
-    public function item()
-    {
-        return $this->hasTo(Item::class);
+    /**
+     * items_tableと1対1のリレーション
+     */
+    public function item() {
+        return $this->belongsTo(Item::class);
     }
 }

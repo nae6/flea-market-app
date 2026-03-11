@@ -19,9 +19,14 @@ return new class extends Migration
             $table->foreignId('item_id')
                 ->constrained()
                 ->restrictOnDelete();
+            $table->unique('item_id');
             $table->string('payment_method');
-            $table->string('stripe_checkout_session_id')->nullable()->unique();
-            $table->string('stripe_payment_intent_id')->nullable()->unique();
+            $table->string('stripe_checkout_session_id')
+                ->nullable()
+                ->unique();
+            $table->string('stripe_payment_intent_id')
+                ->nullable()
+                ->unique();
             $table->unsignedBigInteger('amount');
             $table->string('zip_code', 8);
             $table->string('address');
