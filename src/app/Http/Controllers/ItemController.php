@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Requests\ExhibitionRequest;
+use App\Models\Condition;
 use App\Models\Category;
 use App\Models\Item;
 
@@ -55,7 +56,9 @@ class ItemController extends Controller
                 ->exists();
         }
 
-        return view('dashboard.show', compact('item', 'isFavorited'));
+        $avatar = Auth::user()->profile?->avatar_url;
+
+        return view('dashboard.show', compact('item', 'isFavorited', 'avatar'));
     }
 
     /**
@@ -65,11 +68,16 @@ class ItemController extends Controller
     {
         $categories = Category::select('id', 'category_name')->get();
 
-        return view('dashboard.exhibition', compact('categories'));
+        $conditions = Condition::select('id','condition')->get();
+
+        return view('dashboard.exhibition', compact('categories', 'conditions'));
     }
 
     /**
      * 出品商品の登録
+     *
+     * @param ExhibitionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ExhibitionRequest $request)
     {

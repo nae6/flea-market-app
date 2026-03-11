@@ -42,18 +42,10 @@ class PurchaseController extends Controller
     }
 
     /**
-     * 支払い処理(stripe支払い画面へ遷移)
+     * 支払い処理を行胃、stripeのチェックアウト画面へリダイレクト
      */
     public function checkout(PurchaseRequest $request, Item $item)
     {
-        //sold, my_item購入不可
-        if ($item->status === 'sold') {
-            abort(409, '売り切れです');
-        }
-        if ($item->user_id === auth()->id()) {
-            abort(403, 'あなたの出品商品です');
-        }
-
         // ユーザー情報と配送先情報の取り出し
         $profile = auth()->user()->profile;
         $shipping = session('shipping', []);
@@ -68,19 +60,33 @@ class PurchaseController extends Controller
         $successUrl = $baseUrl . route('index', [], false) . '?session_id={CHECKOUT_SESSION_ID}';
         $cancelUrl  = $baseUrl . route('index', [], false);
 
-        DB::transaction(function () use ($request, $item, $zip_code, $address, $building, $successUrl, $cancelUrl)
+        return DB::transaction(function () use ($request, $item, $zip_code, $address, $building, $successUrl, $cancelUrl)
         {
+            $lockedItem = Item::lockForUpdate()->findOrFail($item->id);
+
+            //sold, my_item購入不可
+            if ($item->status === '2') {
+                abort(409, '売り切れです');
+            }
+            if ($item->user_id === auth()->id()) {
+                abort(403, 'あなたの出品商品です');
+            }
+
+            $order = Order::where('item_id', $lockedItem->id)->first();
+
             // orderの作成
-            $order = Order::create([
-                'buyer_id' => auth()->id(),
-                'item_id' => $item->id,
-                'payment_method' => $request->payment_method,
-                'amount' => $item->price,
-                'zip_code' => $zip_code,
-                'address' => $address,
-                'building' => $building,
-                'status' => 'pending',
+            if (!$order) {
+                $order = Order::create([
+                    'buyer_id' => auth()->id(),
+                    'item_id' => $item->id,
+                    'payment_method' => $request->payment_method,
+                    'amount' => $item->price,
+                    'zip_code' => $zip_code,
+                    'address' => $address,
+                    'building' => $building,
+                    'status' => 'pending',
             ]);
+            }
 
             // 購入処理(stripe)
             $checkout_session = CheckoutSession::create([
@@ -110,12 +116,9 @@ class PurchaseController extends Controller
             ]);
 
             // item statusの変更
-            $item = Item::lockForUpdate()->find($order->item_id);
-            if ($item && $item->status !== '1') {
-                $item->update(['status' => '2']);
-            }
-        });
+            $lockedItem->update(['status' => '2']);
 
-        return redirect()->away($checkout_session->url);
+            return redirect()->away($checkout_session->url);
+        });
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Models\Condition;
 use App\Models\Category;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Order;
+use App\Models\User;
 
 class Item extends Model
 {
@@ -22,51 +24,53 @@ class Item extends Model
     ];
 
     /**
-     * relations
-      */
-    public function user()
-    {
+     * users_tableとの1対多リレーション
+     */
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'categories_items', 'item_id', 'category_id');
+    /**
+     * categories_tableとの多対多リレーション
+     */
+    public function categories() {
+        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 
-    public function favorites()
-    {
+    /**
+     * conditions_tableとの1対1リレーション
+     */
+    public function condition() {
+        return $this->belongsTo(condition::class);
+    }
+
+    /**
+     * favorites_tableとの多対多リレーション
+     */
+    public function favorites() {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
     }
 
-    public function comments()
-    {
+    /**
+     * comments_tableとの1対多リレーション
+     */
+    public function comments() {
         return $this->hasMany(Comment::class);
     }
 
     /**
-     * settings for condition
+     * orders_tableとの1対1リレーション
      */
-    const CONDITION_GOOD = 1;
-    const CONDITION_FINE = 2;
-    const CONDITION_USED = 3;
-    const CONDITION_BAD  = 4;
-
-    public static function conditionLabels()
-    {
-        return [
-            self::CONDITION_GOOD => '良好',
-            self::CONDITION_FINE => '目立った傷や汚れなし',
-            self::CONDITION_USED => 'やや傷や汚れあり',
-            self::CONDITION_BAD  => '状態が悪い',
-        ];
+    public function order() {
+        return $this->hasOne(Order::class);
     }
 
-    public function getConditionLabelAttribute()
-    {
-        return self::conditionLabels()[$this->condition] ?? '';
+    /**
+     * orders_tableとの1対1リレーション
+     */
+    public function buyers() {
+        return $this->belongsToMany(User::class, 'orders', 'item_id', 'buyer_id');
     }
-
 
     /**
      * settings for status

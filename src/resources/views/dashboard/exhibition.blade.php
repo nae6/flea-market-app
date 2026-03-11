@@ -13,9 +13,9 @@
         <div class="form__group">
             <label class="form__label">商品画像</label>
             <div class="upload">
-                <img src="#" alt="item_image" class="upload__img"></img>
                 <input type="file" id="item-photo" name="image_url" hidden>
                 <label for="item-photo" class="upload__btn">画像を選択する</label>
+                <p id="image-message" class="form__message"></p>
             </div>
         </div>
 
@@ -40,14 +40,14 @@
             </div>
             <div class="form__group">
                 <label class="form__label">商品の状態</label>
-                <div class="form__content">
+                <div class="form__content select__wrapper">
                     <select class="item_condition" name="item_condition">
-                        <option value="" selected disabled {{ old('condition_id') ? '' : 'selected' }}>選択してください</option>
-                        <!-- conditionの選択肢記述 -->
-                        <option value="1">良好</option>
-                        <option value="2">目立った傷や汚れなし</option>
-                        <option value="3">やや傷や汚れあり</option>
-                        <option value="4">状態が悪い</option>
+                        <option value="" selected disabled {{ old('condition_id') ? '' : 'selected' }} class="placeholder">選択してください</option>
+                        @foreach($conditions as $condition)
+                        <option value="$condition->id">
+                            {{ $condition->condition }}
+                        </option>
+                        @endforeach
                     </select>
                 </div>
                 @error('condition')
@@ -101,4 +101,15 @@
         </div>
     </form>
 </div>
+
+<script>
+document.getElementById('item-photo').addEventListener('change', function() {
+
+    const message = document.getElementById('image-message');
+
+    if (this.files.length > 0) {
+        message.textContent = "画像が選択されました";
+    }
+});
+</script>
 @endsection
