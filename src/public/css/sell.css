@@ -27,10 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.upload__img {
-    display: none;
+    flex-direction: column;
 }
 
 .upload__btn {
@@ -40,6 +37,11 @@
     color: #f55;
     cursor: pointer;
     user-select: none;
+}
+
+.form__message {
+    color: #f55;
+    margin: 0;
 }
 
 /* info part */
@@ -90,32 +92,41 @@
     margin: 20px 0;
 }
 
+/* ▼の疑似矢印 */
+.select__wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select__wrapper::after {
+    content: "▼";
+    color: #5f5f5f;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
 .item_condition {
     display: inline-block;
     width: 100%;
     padding: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-/* ▼の疑似矢印 未完了 */
-.select__arrow {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    width: 0;
-    height: 0;
-    transform: translateY(-35%);
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 10px solid #6f6f6f;
-    pointer-events: none;
+.placeholder {
+    color: #5f5f5f;
 }
 
 .form__content input {
     padding: 10px;
     width: 100%;
     height: 40px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
     appearance: none;
 }
 
@@ -123,6 +134,8 @@
     padding: 10px;
     width: 100%;
     height: 100px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
 }
 
 .price__input {
@@ -133,7 +146,10 @@
 
 .price__input input {
     padding: 10px;
+    padding-left: 30px;
     width: 100%;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
 }
 
 .price__input::before {
