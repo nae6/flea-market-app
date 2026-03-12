@@ -25,8 +25,9 @@
         <a href="{{ request()->fullUrlWithQuery(['page' => 'buy']) }}" class="tab__item {{ $activePage === 'buy' ? 'active' : '' }}">購入した商品</a>
     </div>
     <div class="tab__content">
+        @if ($activePage === 'sell')
         <div class="items  {{ $activePage === 'sell' ? 'is-active' : '' }}">
-            @forelse ($goods as $sell_item)
+            @forelse ($items as $sell_item)
             <a href="{{ route('items.show', $sell_item->id) }}" class="item__card link__btn">
                 <img src="{{ asset('storage/' . $sell_item->image_url) }}" alt="商品画像">
                 <p class="item__name">{{ $sell_item->item_name }}</p>
@@ -35,16 +36,18 @@
             <div></div>
             @endforelse
         </div>
+        @elseif ($activePage === 'buy')
         <div class="items {{ $activePage === 'buy' ? 'is-active' : '' }}">
-            @forelse ($goods as $buy_item)
-            <a href="{{ route('items.show', $buy_item->id) }}" class="item__card link__btn">
-                <img src="{{ asset('storage/' . $buy_item->image_url) }}" alt="商品画像">
-                <p class="item__name">{{ $buy_item->item_name }}</p>
+            @forelse ($items as $buy_item)
+            <a href="{{ route('items.show', $buy_item->item->id) }}" class="item__card link__btn">
+                <img src="{{ asset('storage/' . $buy_item->item->image_url) }}" alt="商品画像">
+                <p class="item__name">{{ $buy_item->item->item_name }}</p>
             </a>
             @empty
             <div></div>
             @endforelse
         </div>
+        @endif
     </div>
 </div>
 @endsection
