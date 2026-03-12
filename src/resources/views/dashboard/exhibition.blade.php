@@ -17,6 +17,9 @@
                 <label for="item-photo" class="upload__btn">画像を選択する</label>
                 <p id="image-message" class="form__message"></p>
             </div>
+            @error('image_url')
+            <p class="form__error">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="item__info">
@@ -41,16 +44,16 @@
             <div class="form__group">
                 <label class="form__label">商品の状態</label>
                 <div class="form__content select__wrapper">
-                    <select class="item_condition" name="item_condition">
-                        <option value="" selected disabled {{ old('condition_id') ? '' : 'selected' }} class="placeholder">選択してください</option>
+                    <select class="item_condition" name="condition_id">
+                        <option value="" selected disabled  class="placeholder">選択してください</option>
                         @foreach($conditions as $condition)
-                        <option value="$condition->id">
+                        <option value="{{ $condition->id }}">
                             {{ $condition->condition }}
                         </option>
                         @endforeach
                     </select>
                 </div>
-                @error('condition')
+                @error('condition_id')
                 <p class="form__error">{{ $message }}</p>
                 @enderror
             </div>
@@ -78,7 +81,7 @@
             <div class="form__group">
                 <label class="form__label">商品の説明</label>
                 <div class="form__content">
-                    <textarea name="item_description">{{ old('item_description') }}</textarea>
+                    <textarea name="description">{{ old('description') }}</textarea>
                 </div>
                 @error('description')
                 <p class="form__error">{{ $message }}</p>
@@ -88,7 +91,7 @@
             <div class="form__group">
                 <label class="form__label">販売価格</label>
                 <div class="price__input">
-                    <input type="text" name="item_price" value="{{ old('item_price') }}">
+                    <input type="text" name="price" value="{{ old('price') }}">
                 </div>
                 @error('price')
                 <p class="form__error">{{ $message }}</p>

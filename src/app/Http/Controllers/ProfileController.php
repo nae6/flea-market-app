@@ -26,23 +26,24 @@ class ProfileController extends Controller
             $activePage = 'sell';
         }
 
+        $user = Auth::user();
+
         if ($activePage === 'buy') {
-            $query = Auth::user()
-                ->orders()
+            $query = $user->orders()
+                ->whereHas('item')
                 ->with('item:id,item_name,image_url,status')
                 ->latest('orders.created_at');
         } else {
-            $query = Auth::user()
-                ->items()
+            $query = $user->items()
                 ->select('items.id', 'items.item_name', 'items.image_url', 'items.status')
                 ->latest('items.created_at');
         }
 
-        $goods = $query->get();
-        $user = Auth::user();
+        $items = $query->get();
+
         $profile = $user->profile;
 
-        return view('dashboard.mypage', compact('activePage', 'goods','user', 'profile'));
+        return view('dashboard.mypage', compact('activePage', 'items','user', 'profile'));
     }
 
     /**

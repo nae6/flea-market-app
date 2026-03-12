@@ -87,6 +87,7 @@ class ItemController extends Controller
         unset($data['categories']);
 
         $data['image_url'] = $request->file('image_url')->store('items','public');
+
         $data['status'] = 1;
 
         DB::transaction(function() use ($data, $categoryIds) {
@@ -94,7 +95,7 @@ class ItemController extends Controller
             $item->categories()->sync($categoryIds);
         });
 
-        return redirect()->route('mypage');
+        return redirect()->route('index');
     }
 
 }
