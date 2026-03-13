@@ -6,6 +6,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -45,30 +49,42 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * items_tableと1対多リレーション
+     * 出品した商品
      */
-    public function items() {
+    public function items(): HasMany
+    {
         return $this->hasMany(Item::class);
     }
 
     /**
-     * favorites_tableと多対多リレーション
+     * お気に入り登録した商品
      */
-    public function favorites() {
+    public function favorites(): BelongsToMany
+    {
         return $this->belongsToMany(Item::class, 'favorites', 'user_id', 'item_id')->withTimestamps();
     }
 
     /**
-     * orders_tableと1対多リレーション
+     * 投稿したコメント
      */
-    public function orders() {
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * 購入履歴
+     */
+    public function orders(): HasMany
+    {
         return $this->hasMany(Order::class, 'buyer_id');
     }
 
     /**
-     * Profiles_tableと1対1リレーション
+     * プロフィール
      */
-    public function profile() {
+    public function profile(): HasOne
+    {
         return $this->hasOne(Profile::class);
     }
 }
