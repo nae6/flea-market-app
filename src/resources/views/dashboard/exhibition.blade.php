@@ -48,7 +48,7 @@
                         <option value="" selected disabled  class="placeholder">選択してください</option>
                         @foreach($conditions as $condition)
                         <option value="{{ $condition->id }}">
-                            {{ $condition->condition }}
+                            {{ $condition->condition_name }}
                         </option>
                         @endforeach
                     </select>

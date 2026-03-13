@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,7 @@
             <a href="/" class="header__logo">
                 <img src="{{ asset('images/header_logo.png') }}" alt="coachtech logo">
             </a>
-            @if (!request()->routeIs('login', 'register', 'verify-email'))
+            @if (!request()->routeIs('login', 'register', 'verification.notice'))
             <form action="{{ route('index') }}" method="GET" class="header__search">
                 <input type="search" name="keyword" value="{{ $keyword ?? '' }}" placeholder="なにをお探しですか？" class="search__input">
                 @yield('search_extra')

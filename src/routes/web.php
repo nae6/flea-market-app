@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VerifyEmailController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CommentController;
@@ -43,6 +44,11 @@ Route::middleware(['auth'])->group(function()
     Route::post('/item/{item}/favorite', [FavoriteController::class, 'toggle'])
         ->name('items.favorite');
 
+    Route::get('/sell', [ItemController::class, 'create'])
+        ->name('sell');
+    Route::post('/sell', [ItemController::class, 'store'])
+        ->name('sell.store');
+
     Route::get('/purchase/{item}', [PurchaseController::class, 'index'])
         ->name('buy');
     Route::post('/purchase/{item}', [PurchaseController::class, 'checkout'])
@@ -58,9 +64,4 @@ Route::middleware(['auth'])->group(function()
         ->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
-
-    Route::get('/sell', [ItemController::class, 'create'])
-        ->name('sell');
-    Route::post('/sell', [ItemController::class, 'store'])
-        ->name('sell.store');
 });
