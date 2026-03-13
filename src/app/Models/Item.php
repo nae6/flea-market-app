@@ -45,7 +45,7 @@ class Item extends Model
     }
 
     /**
-     * favorites_tableとの多対多リレーション
+     * users_tableとfavorites_tableを介した多対多リレーション
      */
     public function favorites() {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
@@ -63,13 +63,6 @@ class Item extends Model
      */
     public function order() {
         return $this->hasOne(Order::class);
-    }
-
-    /**
-     * orders_tableとの1対1リレーション
-     */
-    public function buyers() {
-        return $this->belongsToMany(User::class, 'orders', 'item_id', 'buyer_id');
     }
 
     /**

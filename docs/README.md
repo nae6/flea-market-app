@@ -44,11 +44,7 @@ Laravelで作成したフリマアプリです。
 
 ## ER図
 
-※ 後で画像を追加
-
----
-
-## テーブル設計（抜粋）
+### テーブル設計（抜粋）
 
 - users
 - items
@@ -58,12 +54,21 @@ Laravelで作成したフリマアプリです。
 
 ---
 
+### リレーション
+
+- categories (1) ─── (N) contacts
+
+![ER Diagram](er/er_diagram.png)
+
+---
+
 ## 工夫した点
 
 - Fortifyを用いた認証機能
 - FormRequestによるバリデーションの分離
 - Eloquentのリレーション・Scopeの活用
 - 可読性を意識したController設計
+- Livewireを用いた、支払い方法選択を即時画面に反映する非同期UIの実装
 
 ---
 
@@ -77,7 +82,7 @@ Laravelで作成したフリマアプリです。
 
 ## 今後の改善予定
 
-- Livewireを用いたアップロード画像の即時反映
+- Livewireを用いたアップロード画像の即時反映の実装
 - try-catch構文を用いたエラーへの対応
 - エラーページのカスタム
 - Model内に記述した定数のEnumsへの移行
@@ -87,12 +92,14 @@ Laravelで作成したフリマアプリです。
 ## 環境構築
 
 ### 1. リポジトリをクローン
+
 ```bash
 git clone
 cd flea-market-app
 ```
 
 ### 2. Dockerビルド
+
 ```bash
 docker compose up -d --build
 ```
@@ -100,20 +107,24 @@ docker compose up -d --build
 ### 3. Laravel環境構築
 
 #### 1. PHPコンテナに入る
+
 ```bash
 docker compose exec php bash
 ```
 
 #### 2. Laravelパッケージのインストール
+
 ```bash
 composer install
 ```
 
 #### 3. .env作成
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
+
 .envを以下のように設定してください
 
 ```bash
@@ -126,6 +137,7 @@ DB_PASSWORD=laravel_pass
 ```
 
 #### 4. データベース初期化
+
 ```bash
 php artisan migrate
 php artisan db:seed
