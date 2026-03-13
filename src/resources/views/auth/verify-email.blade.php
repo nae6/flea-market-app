@@ -5,15 +5,14 @@
 @endsection
 
 @section('content')
-<div class="verify-message">
-    <p  class="verify-message">
+<div class="auth-form verify-wrapper">
+    <p class="verify-message">
         登録していただいたメールアドレスに認証メールを送付しました。<br>メール認証を完了してください。
     </p>
-    <form action="{{ route('verification.notice') }}" method="GET">
-        @csrf
-        <button type="submit">認証はこちらから</button>
-    </form>
-    <form action="{{ route('verification.send') }}" method="POST">
+    <div class="verify-confirm">
+        <a href="http://localhost:8025">認証はこちらから</a>
+    </div>
+    <form action="{{ route('verification.send') }}" method="POST" class="verify-resend">
         @csrf
         <button type="submit">認証メールを再送する</button>
     </form>
