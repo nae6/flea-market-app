@@ -29,7 +29,7 @@ class ItemController extends Controller
 
         $query = Item::query()->forRecommended($keyword);
 
-        if ($activeTab === 'mylist' && auth()->check()) {
+        if ($activeTab === 'mylist' && Auth::check()) {
             $query->mylist(Auth::id());
         }
 
@@ -50,9 +50,9 @@ class ItemController extends Controller
 
         $isFavorited = false;
 
-        if (auth()->check()) {
+        if (Auth::check()) {
             $isFavorited = $item->favorites()
-                ->where('user_id', auth()->id())
+                ->where('user_id', Auth::id())
                 ->exists();
         }
 
@@ -68,7 +68,7 @@ class ItemController extends Controller
     {
         $categories = Category::select('id', 'category_name')->get();
 
-        $conditions = Condition::select('id','condition')->get();
+        $conditions = Condition::select('id','condition_name')->get();
 
         return view('dashboard.exhibition', compact('categories', 'conditions'));
     }

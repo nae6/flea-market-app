@@ -7,7 +7,7 @@ use App\Models\Item;
 
 class Condition extends Model
 {
-    protected $fillable = ['condition'];
+    protected $fillable = ['condition_name'];
 
     /**
      * items_tableとの1対1リレーション

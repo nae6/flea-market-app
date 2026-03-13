@@ -21,7 +21,7 @@ class ConditionsTableSeeder extends Seeder
 
         foreach ($conditions as $condition) {
             Condition::create([
-                'condition' => $condition,
+                'condition_name' => $condition,
             ]);
         }
     }
