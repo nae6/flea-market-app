@@ -42,7 +42,7 @@ return [
     'ends_with'            => ':attributeは、次のうちのいずれかで終わらなければなりません。: :values',
     'exists'               => '選択された:attributeは、有効ではありません。',
     'file'                 => ':attributeはファイルでなければいけません。',
-    'filled'               => ':attributeは必須です。',
+    'filled'               => '会員情報が登録されていません',
     'gt'                   => [
         'numeric' => ':attributeは、:valueより大きくなければなりません。',
         'file'    => ':attributeは、:value KBより大きくなければなりません。',

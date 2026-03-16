@@ -14,11 +14,93 @@ class LoginTest extends TestCase
     /**
      * ログイン画面の表示
      */
-    public function test_display_login_view(): void
-    {
+    public function test_display_login_view(): void {
         $response = $this->get('/login');
 
         $response->assertStatus(200);
+    }
+
+    /**
+     * メールアドレス入力のエラー確認
+     */
+    public function test_email_is_required_for_login() {
+        User::factory()->create([
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->from('/login')
+            ->post('/login', [
+                'email' => '',
+                'password' => 'password',
+            ]);
+
+        $response->assertRedirect('/login');
+
+        $response->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください'
+        ]);
+    }
+
+    /**
+     * パスワード入力のエラー確認
+     */
+    public function test_password_is_required_for_login() {
+        $user = User::factory()->create();
+
+        $response = $this->from('/login')
+            ->post('/login', [
+                'email' => $user->email,
+                'password' => '',
+            ]);
+
+        $response->assertRedirect('/login');
+
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください'
+        ]);
+    }
+
+    /**
+     * メールアドレス入力間違いのエラー確認
+     */
+    public function test_email_input_is_invalid() {
+        User::factory()->create([
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->from('/login')
+            ->post('/login', [
+                'email' => 'notfound@example.com',
+                'password' => 'password',
+            ]);
+
+        $response->assertSessionHasErrors([
+            'password' => 'ログイン情報が登録されていません'
+        ]);
+
+        $this->assertGuest();
+    }
+
+    /**
+     * パスワード入力間違いのエラー確認
+     */
+    public function test_password_input_is_invalid()
+    {
+        $user = User::factory()->create([
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->from('/login')
+            ->post('/login', [
+                'email' => $user->email,
+                'password' => 'pass1234',
+            ]);
+
+        $response->assertSessionHasErrors([
+            'password' => 'ログイン情報が登録されていません'
+        ]);
+
+        $this->assertGuest();
     }
 
     /**

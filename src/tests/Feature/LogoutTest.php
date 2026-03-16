@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -20,9 +19,9 @@ class LogoutTest extends TestCase
 
         $response = $this->actingAs($user)->post('/logout');
 
-        $response->assertRedirect(route('index'));
+        $response->assertRedirect('/login');
 
-        $response->assertGuest();
+        $this->assertGuest();
 
     }
 }
