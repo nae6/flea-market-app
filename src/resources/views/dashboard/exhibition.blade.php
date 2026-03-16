@@ -24,7 +24,7 @@
 
         <div class="item__info">
             <h2 class="info-title">商品の詳細</h2>
-            <div class="form__group">
+            <div class="form__group category-wrapper">
                 <label class="form__label">カテゴリー</label>
                 <div class="form__radio">
                     @foreach ($categories as $category)

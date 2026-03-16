@@ -28,7 +28,7 @@
         @if ($activePage === 'sell')
         <div class="items  {{ $activePage === 'sell' ? 'is-active' : '' }}">
             @forelse ($items as $sell_item)
-            <a href="{{ route('items.show', $sell_item->id) }}" class="item__card link__btn">
+            <a href="{{ route('items.show', $sell_item->id) }}" class="item__card link__btn {{ $sell_item->status === 2 ? 'sold' : '' }}">
                 <img src="{{ asset('storage/' . $sell_item->image_url) }}" alt="商品画像">
                 <p class="item__name">{{ $sell_item->item_name }}</p>
             </a>
