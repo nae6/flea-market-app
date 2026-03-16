@@ -9,8 +9,8 @@ use Illuminate\View\View;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Condition;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Item;
-
 
 class ItemController extends Controller
 {
@@ -25,7 +25,7 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-        $activeTab = $request->get('tab', 'recommend');
+        $activeTab = $request->input('tab', 'recommend');
 
         $query = Item::query()->forRecommended($keyword);
 
@@ -56,9 +56,10 @@ class ItemController extends Controller
                 ->exists();
         }
 
-        $avatar = Auth::user()->profile?->avatar_url;
+        $item->load('comments.user');
+        $comments = $item->comments->sortByDesc('created_at');
 
-        return view('dashboard.show', compact('item', 'isFavorited', 'avatar'));
+        return view('dashboard.show', compact('item', 'isFavorited', 'comments'));
     }
 
     /**
@@ -95,7 +96,7 @@ class ItemController extends Controller
             $item->categories()->sync($categoryIds);
         });
 
-        return redirect()->route('index');
+        return redirect()->route('mypage');
     }
 
 }

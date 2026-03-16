@@ -13,8 +13,8 @@
 }
 
 .profile-avatar {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     overflow: hidden;
     background-color: #ddd;
@@ -27,7 +27,7 @@
 }
 
 .profile-name {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: 700;
 }
 
@@ -38,12 +38,12 @@
     color: #f55;
     text-decoration: none;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 26px;
 }
 
 /* tab wrapper */
 .tab-wrapper {
-    padding: 0 40px;
+    padding: 0 5%;
     margin-bottom: 100px;
 }
 
@@ -53,7 +53,7 @@
     justify-content: flex-start;
     align-items: center;
     padding-left: 80px;
-    margin-top: 40px;
+    margin-top: 70px;
     position: relative;
 }
 
@@ -71,7 +71,7 @@
     cursor: pointer;
     text-decoration: none;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 24px;
     color: #5f5f5f;
     padding: 10px;
 }
@@ -85,7 +85,7 @@
     margin-top: 50px;
     display: none;
     grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
+    gap: 5%;
 }
 
 .items.is-active {
@@ -111,5 +111,27 @@
 
 .item__name {
     margin: 5px 0;
-    font-size: 16px;
+    font-size: 25px;
+}
+
+/* sold */
+.item__card.sold {
+    pointer-events: none;
+}
+
+.item__card.sold img {
+    filter: grayscale(100%) brightness(50%);
+}
+
+.item__card.sold::after {
+    content: "SOLD";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: #ff5555;
 }
