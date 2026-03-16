@@ -51,12 +51,12 @@
 
         <div class="comment-wrapper">
             <h2>コメント(<span>{{ $item->comments_count }}</span>)</h2>
-            @foreach ($item->comments as $comment)
+            @forelse ($comments as $comment)
             <div class="comment__list">
                 <div class="profile-header">
                     <div class="profile-avatar">
-                        @if ($avatar)
-                        <img src="{{ asset('storage/' . $avatar) }}" alt="avatar">
+                        @if ($comment->user?->profile?->avatar_url)
+                        <img src="{{ asset('storage/' . $comment->user->profile->avatar_url) }}" alt="avatar">
                         @else
                         <div></div>
                         @endif
@@ -65,7 +65,9 @@
                 </div>
                 <p>{{ $comment->content }}</p>
             </div>
-            @endforeach
+            @empty
+            <div></div>
+            @endforelse
             <form action="{{ route('comments.store', $item) }}" method="POST" class="comment__form">
                 @csrf
                 <label for="content" class="comment__header">商品へのコメント</label>
@@ -73,7 +75,7 @@
                 @error('content')
                 <div class="form__error">{{ $message }}</div>
                 @enderror
-                <button type="submit" class="form__btn-submit">コメントを送信する</button>
+                <button type="submit" class="form__btn-submit comment-btn">コメントを送信する</button>
             </form>
         </div>
     </div>

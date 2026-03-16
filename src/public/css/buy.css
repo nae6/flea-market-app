@@ -2,9 +2,8 @@
     margin: 80px 6% 200px;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 200px 150px 200px;
+    grid-template-rows: 230px 180px 230px;
     column-gap: 6%;
-    row-gap: 24px;
 }
 
 .buy__info {
@@ -17,36 +16,39 @@
     grid-row: 1/2;
     display: flex;
     justify-content: flex-start;
-    gap: 10%;
+    gap: 8%;
 }
 
 .buy__item img {
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     background-color: #ddd;
 }
 
 .buy__item-name {
-    margin-top: 0;
-    font-size: 20px;
+    margin: 0;
+    font-size: 30px;
     font-weight: bold;
 }
 
 .buy__item-price {
-    font-size: 20px;
+    font-size: 30px;
+    margin: 20px 0;
 }
 
 /* payment */
 .buy__payment {
+    margin-top: 20px;
     grid-column: 1/2;
     grid-row: 2/3;
 }
 
 .payment__title,
 .shipping__title {
+    display: block;
     margin: 20px 30px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -58,6 +60,7 @@
 
 /* shipping */
 .buy__shipping {
+    margin-top: 20px;
     grid-column: 1/2;
     grid-row: 3/4;
 }
@@ -71,13 +74,13 @@
 .shipping a {
     margin: 0 30px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     color: #0073cc;
     text-decoration: none;
 }
 
 .shipping-address__detail {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     margin-left: 90px;
 }
@@ -106,11 +109,11 @@
 
 .table__row th {
     font-weight: normal;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .table__row td {
-    font-size: 20px;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -128,7 +131,7 @@
     border-radius: 3px;
     background: #f55;
     color: #fff;
-    font-size: 18px;
+    font-size: 26px;
     font-weight: bold;
     cursor: pointer;
 }
