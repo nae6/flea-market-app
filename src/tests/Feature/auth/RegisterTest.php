@@ -22,7 +22,8 @@ class RegisterTest extends TestCase
     /**
      * 名前入力のエラー確認
      */
-    public function test_name_is_required_for_registration() {
+    public function test_name_is_required_for_registration()
+    {
         $response = $this->from('/register')
             ->post('/register', [
                 'name' => '',
@@ -41,7 +42,8 @@ class RegisterTest extends TestCase
     /**
      * メールアドレス入力のエラー確認
      */
-    public function test_email_is_required_for_registration() {
+    public function test_email_is_required_for_registration()
+    {
         $response = $this->from('/register')
             ->post('/register', [
                 'name' => 'test user',
@@ -60,7 +62,8 @@ class RegisterTest extends TestCase
     /**
      * パスワード入力のエラー確認
      */
-    public function test_password_is_required_for_registration() {
+    public function test_password_is_required_for_registration()
+    {
         $response = $this->from('/register')
             ->post('/register', [
                 'name' => 'test user',
@@ -99,7 +102,8 @@ class RegisterTest extends TestCase
     /**
      * パスワード不一致のエラー確認
      */
-    public function test_password_confirmation_must_match() {
+    public function test_password_confirmation_must_match()
+    {
         $response = $this->from('/register')
             ->post('/register', [
                 'name' => 'test user',
