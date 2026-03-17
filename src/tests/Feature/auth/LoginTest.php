@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -14,7 +13,8 @@ class LoginTest extends TestCase
     /**
      * ログイン画面の表示
      */
-    public function test_display_login_view(): void {
+    public function test_display_login_view(): void
+    {
         $response = $this->get('/login');
 
         $response->assertStatus(200);
@@ -23,7 +23,8 @@ class LoginTest extends TestCase
     /**
      * メールアドレス入力のエラー確認
      */
-    public function test_email_is_required_for_login() {
+    public function test_email_is_required_for_login()
+    {
         User::factory()->create([
             'password' => bcrypt('password'),
         ]);
@@ -63,7 +64,8 @@ class LoginTest extends TestCase
     /**
      * メールアドレス入力間違いのエラー確認
      */
-    public function test_email_input_is_invalid() {
+    public function test_email_input_is_invalid()
+    {
         User::factory()->create([
             'password' => bcrypt('password'),
         ]);
