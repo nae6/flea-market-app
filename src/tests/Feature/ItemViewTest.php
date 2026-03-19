@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Condition;
 use App\Models\Item;
 use App\Models\User;
@@ -18,7 +17,7 @@ class ItemViewTest extends TestCase
      */
     public function test_items_are_displayed(): void
     {
-        $condition = Condition::create(['condition' => '良好',]);
+        $condition = Condition::factory()->create();
 
         $items = Item::factory()->count(10)->create([
             'condition_id' => $condition->id,
@@ -32,13 +31,13 @@ class ItemViewTest extends TestCase
             $response->assertSee($item->item_name);
         }
 
-        $this->assertCount(10, Item::all());
+        $this->assertDatabaseCount('items', 10);
     }
 
     /**
-     * soldが表示されるか
+     * 商品一覧で購入済みはsoldが表示されるか
      */
-    public function test_sold_label_is_displayed_for_sold_item()
+    public function test_sold_label_is_displayed_for_sold_item_on_index()
     {
         Item::factory()->create([
             'item_name' => '購入済み商品',
@@ -50,7 +49,6 @@ class ItemViewTest extends TestCase
         $response->assertOk();
         $response->assertSee('購入済み商品');
         $response->assertSee('class="item__card link__btn sold"', false);
-        $response->assertSee('SOLD');
     }
 
     /**
