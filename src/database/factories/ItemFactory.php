@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Condition;
 use App\Models\Item;
 use App\Models\User;
 
@@ -26,7 +27,7 @@ class ItemFactory extends Factory
             'image_url' => 'items/sample.png',
             'brand' => fake()->optional()->company(),
             'price' => fake()->numberBetween(500, 10000),
-            'condition_id' => 1,
+            'condition_id' => Condition::factory(),
             'description' => fake()->realText(100),
             'status' => 1,
         ];
