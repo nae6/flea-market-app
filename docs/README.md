@@ -54,10 +54,6 @@ Laravelで作成したフリマアプリです。
 
 ---
 
-### リレーション
-
-- categories (1) ─── (N) contacts
-
 ![ER Diagram](er/er_diagram.png)
 
 ---
@@ -124,8 +120,8 @@ php artisan db:seed
 
 ### testmomoko（機能確認用ユーザー）
 
-email: <testmomoko@example.com>
-password: testmomoko
+- email: <testmomoko@example.com>
+- password: testmomoko
 
 このユーザーには以下のテストデータを設定しています。
 
@@ -139,8 +135,8 @@ password: testmomoko
 
 ### testtarou
 
-email: <testtarou@example.com>
-password: testtarou
+- email: <testtarou@example.com>
+- password: testtarou
 
 出品商品のみ設定しています。
 

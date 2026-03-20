@@ -29,8 +29,13 @@ class ItemController extends Controller
 
         $query = Item::query()->forRecommended($keyword);
 
-        if ($activeTab === 'mylist' && Auth::check()) {
-            $query->mylist(Auth::id());
+        if ($activeTab === 'mylist') {
+            if (!Auth::check()) {
+                $items = collect();
+                return view('dashboard.index', compact('activeTab', 'items', 'keyword'));
+            }
+
+            $query = Item::query()->mylist(Auth::id());
         }
 
         $items = $query->get();
