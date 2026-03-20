@@ -17,11 +17,7 @@ class ItemViewTest extends TestCase
      */
     public function test_items_are_displayed(): void
     {
-        $condition = Condition::factory()->create();
-
-        $items = Item::factory()->count(10)->create([
-            'condition_id' => $condition->id,
-        ]);
+        $items = Item::factory()->count(10)->create();
 
         $response = $this->get(route('index'));
 
@@ -36,6 +32,7 @@ class ItemViewTest extends TestCase
 
     /**
      * 商品一覧で購入済みはsoldが表示されるか
+     * このテストだけでは確定できないため画面確認が必要
      */
     public function test_sold_label_is_displayed_for_sold_item_on_index()
     {
