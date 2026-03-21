@@ -27,15 +27,15 @@ class ItemController extends Controller
         $keyword = $request->input('keyword');
         $activeTab = $request->input('tab', 'recommend');
 
-        $query = Item::query()->forRecommended($keyword);
-
         if ($activeTab === 'mylist') {
             if (!Auth::check()) {
                 $items = collect();
                 return view('dashboard.index', compact('activeTab', 'items', 'keyword'));
             }
 
-            $query = Item::query()->mylist(Auth::id());
+            $query = Item::query()->forMylist(Auth::id(), $keyword);
+        } else {
+            $query = Item::query()->forRecommended($keyword);
         }
 
         $items = $query->get();
