@@ -23,7 +23,7 @@ class LoginTest extends TestCase
     /**
      * メールアドレス入力のエラー確認
      */
-    public function test_email_is_required_for_login()
+    public function test_email_is_required_for_login(): void
     {
         User::factory()->create([
             'password' => bcrypt('password'),
@@ -45,7 +45,8 @@ class LoginTest extends TestCase
     /**
      * パスワード入力のエラー確認
      */
-    public function test_password_is_required_for_login() {
+    public function test_password_is_required_for_login(): void
+    {
         $user = User::factory()->create();
 
         $response = $this->from('/login')
@@ -64,7 +65,7 @@ class LoginTest extends TestCase
     /**
      * メールアドレス入力間違いのエラー確認
      */
-    public function test_email_input_is_invalid()
+    public function test_email_input_is_invalid(): void
     {
         User::factory()->create([
             'password' => bcrypt('password'),
@@ -86,7 +87,7 @@ class LoginTest extends TestCase
     /**
      * パスワード入力間違いのエラー確認
      */
-    public function test_password_input_is_invalid()
+    public function test_password_input_is_invalid(): void
     {
         $user = User::factory()->create([
             'password' => bcrypt('password'),
@@ -108,7 +109,7 @@ class LoginTest extends TestCase
     /**
      * ユーザーがログインできるか
      */
-    public function test_user_can_login()
+    public function test_user_can_login(): void
     {
         $user = User::factory()->create([
             'password' => bcrypt('password'),

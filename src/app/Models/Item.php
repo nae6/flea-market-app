@@ -27,42 +27,42 @@ class Item extends Model
     ];
 
     /**
-     * users_tableとの1対多リレーション
+     * users情報を取得
      */
     public function user() {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * categories_tableとの多対多リレーション
+     * 複数の紐づいたカテゴリーを取得
      */
     public function categories() {
         return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 
     /**
-     * conditions_tableとの1対1リレーション
+     * conditionsを取得
      */
     public function condition() {
         return $this->belongsTo(condition::class);
     }
 
     /**
-     * users_tableとfavorites_tableを介した多対多リレーション
+     * いいねの取得
      */
     public function favorites() {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
     }
 
     /**
-     * comments_tableとの1対多リレーション
+     * コメントの取得
      */
     public function comments() {
         return $this->hasMany(Comment::class);
     }
 
     /**
-     * orders_tableとの1対1リレーション
+     * 注文履歴の取得
      */
     public function order() {
         return $this->hasOne(Order::class);
@@ -74,24 +74,21 @@ class Item extends Model
     const STATUS_SELLING = 1;
     const STATUS_SOLD = 2;
 
-    public static function statusLabels()
-    {
+    public static function statusLabels() {
         return [
             self::STATUS_SELLING => 'selling',
             self::STATUS_SOLD => 'sold',
         ];
     }
 
-    public function getStatusLabelAttribute()
-    {
+    public function getStatusLabelAttribute() {
         return self::statusLabels()[$this->status] ?? '';
     }
 
     /**
      * exclude own items
      */
-    public function scopeExcludeOwn($query)
-    {
+    public function scopeExcludeOwn($query) {
         if (Auth::check())
         {
             $query->where('user_id', '!=', Auth::id());
@@ -103,8 +100,7 @@ class Item extends Model
     /**
      * search items by keyword
      */
-    public function scopeKeyword($query, ?string $keyword)
-    {
+    public function scopeKeyword($query, ?string $keyword) {
         if (!empty($keyword))
         {
             $query->where('item_name', 'like', '%' . $keyword . '%');
@@ -116,8 +112,7 @@ class Item extends Model
     /**
      * scope for recommended
      */
-    public function scopeForRecommended(Builder $query, ?string $keyword): Builder
-    {
+    public function scopeForRecommended(Builder $query, ?string $keyword): Builder {
         return $query
             ->excludeOwn()
             ->keyword($keyword)
@@ -126,14 +121,22 @@ class Item extends Model
     }
 
     /**
+     * get only favorite items
+     */
+    public function scopeMylist(Builder $query, int $userId): Builder {
+        return $query->whereHas('favorites', function (Builder $q) use ($userId) {
+            $q->where('users.id', $userId);
+        });
+    }
+
+    /**
      * scope for mylist
      */
-    public function scopeMylist(Builder $query, int $userId): Builder
-    {
-        return $query->whereHas('favorites',
-            function (Builder $q) use ($userId)
-            {
-                $q->where('users.id', $userId);
-            });
+    public function scopeForMylist(Builder $query, int $userId, ?string $keyword): Builder {
+        return $query
+            ->mylist($userId)
+            ->keyword($keyword)
+            ->select(['id', 'item_name', 'image_url', 'status'])
+            ->latest();
     }
 }
