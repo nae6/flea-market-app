@@ -45,7 +45,7 @@
             </div>
             <div class="detail__info">
                 <h3>商品の状態</h3>
-                <p>{{ $item->condition->condition }}</p>
+                <p>{{ $item->condition->condition_name }}</p>
             </div>
         </div>
 
