@@ -19,8 +19,14 @@ class ConditionFactory extends Factory
      */
     public function definition(): array
     {
+        $condition_list = [
+            '良好',
+            'まあまあ',
+            '悪い'
+        ];
+
         return [
-            'condition_name' => '良好',
+            'condition_name' => fake()->randomElement($condition_list),
         ];
     }
 }
