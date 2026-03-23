@@ -20,7 +20,7 @@ class ProfileController extends Controller
      * @return View
      */
     public function index(Request $request) {
-        $activePage = $request->get('page', 'sell');
+        $activePage = $request->input('page', 'sell');
 
         if (!in_array($activePage, ['sell', 'buy'], true)) {
             $activePage = 'sell';
