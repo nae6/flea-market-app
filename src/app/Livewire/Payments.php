@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Item;
 
@@ -23,7 +24,7 @@ class Payments extends Component
     public function mount(Item $item): void
     {
         $this->item = $item;
-        $this->profile = auth()->user()->profile;
+        $this->profile = Auth::user()->profile;
     }
 
     public function render()

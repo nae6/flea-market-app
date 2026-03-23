@@ -9,7 +9,6 @@ use Illuminate\View\View;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Condition;
 use App\Models\Category;
-use App\Models\Comment;
 use App\Models\Item;
 
 class ItemController extends Controller
