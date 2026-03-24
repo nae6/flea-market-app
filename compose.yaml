@@ -18,9 +18,9 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel_db
-      MYSQL_USER: laravel_user
-      MYSQL_PASSWORD: laravel_pass
+      MYSQL_DATABASE: laravel_flea_market_db
+      MYSQL_USER: laravel_flea_market_user
+      MYSQL_PASSWORD: laravel_flea_market_pass
     command:
       mysqld --default-authentication-plugin=mysql_native_password
     volumes:
