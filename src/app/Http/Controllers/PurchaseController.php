@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PurchaseRequest;
-use App\Http\Requests\AddressRequest;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Models\Order;
-use App\Models\Item;
 use Stripe\Checkout\Session as CheckoutSession;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
+use App\Models\Order;
+use App\Models\Item;
 
 class PurchaseController extends Controller
 {
@@ -42,12 +42,12 @@ class PurchaseController extends Controller
     }
 
     /**
-     * 支払い処理を行胃、stripeのチェックアウト画面へリダイレクト
+     * 支払い処理後、stripeのチェックアウト画面へリダイレクト
      */
     public function checkout(PurchaseRequest $request, Item $item)
     {
         // ユーザー情報と配送先情報の取り出し
-        $profile = auth()->user()->profile;
+        $profile = Auth::user()->profile;
         $shipping = session('shipping', []);
 
         $zip_code = $shipping['zip_code'] ?? $profile?->zip_code;
@@ -65,10 +65,10 @@ class PurchaseController extends Controller
             $lockedItem = Item::lockForUpdate()->findOrFail($item->id);
 
             //sold, my_item購入不可
-            if ($item->status === '2') {
+            if ($lockedItem->status === '2') {
                 abort(409, '売り切れです');
             }
-            if ($item->user_id === auth()->id()) {
+            if ($lockedItem->user_id === Auth::id()) {
                 abort(403, 'あなたの出品商品です');
             }
 
@@ -77,7 +77,7 @@ class PurchaseController extends Controller
             // orderの作成
             if (!$order) {
                 $order = Order::create([
-                    'buyer_id' => auth()->id(),
+                    'buyer_id' => Auth::id(),
                     'item_id' => $item->id,
                     'payment_method' => $request->payment_method,
                     'amount' => $item->price,
@@ -103,7 +103,7 @@ class PurchaseController extends Controller
                 'metadata' => [
                     'order_id' => $order->id,
                     'item_id' => $item->id,
-                    'user_id' => auth()->id(),
+                    'user_id' => Auth::id(),
                 ],
 
                 'success_url' => $successUrl,
