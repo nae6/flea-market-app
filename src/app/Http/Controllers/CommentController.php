@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
-use App\Models\Comment;
 use App\Models\Item;
 
 class CommentController extends Controller
@@ -21,7 +21,7 @@ class CommentController extends Controller
         $validated = $request->validated();
 
         $item->comments()->create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'content' => $validated['content'],
         ]);
 
