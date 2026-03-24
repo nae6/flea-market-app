@@ -19,14 +19,14 @@ Laravelで作成したフリマアプリです。
 ## 使用技術
 
 - PHP: 8.4.17
-- Laravel: 12.49.0
+- Laravel: 12.51.0
 - DB: MySQL
 - MySQL: 8.0
 - nginx: 1.28.1
 - View: Blade
 - Docker / Docker Compose
 - stripe version 1.35.0
-- Livewire:
+- Livewire: 4.1.2
 
 ---
 
@@ -63,7 +63,7 @@ Laravelで作成したフリマアプリです。
 ### 1. リポジトリをクローン
 
 ```bash
-git clone
+git clone https://github.com/nae6/flea-market-app.git
 cd flea-market-app
 ```
 
@@ -100,9 +100,9 @@ php artisan key:generate
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=laravel_db
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_pass
+DB_DATABASE=laravel_flea_market_db
+DB_USERNAME=laravel_flea_market_user
+DB_PASSWORD=laravel_flea_market_pass
 ```
 
 #### 4. データベース初期化

@@ -14,7 +14,6 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install bcmath
-RUN docker-php-ext-install gd
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
