@@ -91,8 +91,11 @@ class ItemController extends Controller
         $categoryIds = $data['categories'];
         unset($data['categories']);
 
-        $data['image_url'] = $request->file('image_url')->store('items','public');
+        $file = $request->file('image_url');
+        $path = 'items/' . $file->hashName();
+        $file->move(public_path('images/items'), basename($path));
 
+        $data['image_url'] = $path;
         $data['status'] = 1;
 
         DB::transaction(function() use ($data, $categoryIds) {
@@ -102,5 +105,4 @@ class ItemController extends Controller
 
         return redirect()->route('mypage');
     }
-
 }
