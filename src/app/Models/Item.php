@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Condition;
 use App\Models\Category;
@@ -138,5 +139,17 @@ class Item extends Model
             ->keyword($keyword)
             ->select(['id', 'item_name', 'image_url', 'status'])
             ->latest();
+    }
+
+    /**
+     * 画像のURL判定
+     */
+    public function getImageUrl(): string
+    {
+        if (str_starts_with($this->image_url, 'sample-images/')) {
+            return asset($this->image_url);
+        }
+
+        return Storage::url($this->image_url);
     }
 }
