@@ -7,7 +7,7 @@
 @section('content')
 <div class="detail">
     <div class="detail__img">
-        <img src="{{ asset('images/' . $item->image_url) }}" alt="商品画像">
+        <img src="{{ $item->getImageUrl() }}" alt="{{ $item->item_name }}">
     </div>
 
     <div class="detail__content">
