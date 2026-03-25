@@ -32,8 +32,8 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mysql
-      - PMA_USER=laravel_user
-      - PMA_PASSWORD=laravel_pass
+      - PMA_USER=laravel_flea_market_user
+      - PMA_PASSWORD=laravel_flea_market_pass
     depends_on:
       - mysql
     ports:

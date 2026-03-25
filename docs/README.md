@@ -94,9 +94,8 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-.envを以下のように設定してください
+- 必要な環境変数を設定してください
 
-```bash
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
@@ -107,6 +106,20 @@ DB_PASSWORD=laravel_flea_market_pass
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
+
+- Stripe APIキー（各自取得後、.envへ記載してください）
+
+STRIPE_KEY=
+STRIPE_SECRET=
+
+※StripeのAPIキーは以下から取得できます
+<https://dashboard.stripe.com/test/apikeys>
+※「Viewing test data」をONにして取得してください
+
+- 設定後はキャッシュをクリアしてください
+
+```bash
+php artisan config:clear
 ```
 
 #### 4. データベース初期化
@@ -114,6 +127,12 @@ MAIL_PORT=1025
 ```bash
 php artisan migrate
 php artisan db:seed
+```
+
+#### 5. ストレージリンクの作成
+
+```bash
+php artisan storage:link
 ```
 
 ---

@@ -21,7 +21,7 @@ class ItemController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $keyword = $request->input('keyword');
         $activeTab = $request->input('tab', 'recommend');
@@ -91,14 +91,10 @@ class ItemController extends Controller
         $categoryIds = $data['categories'];
         unset($data['categories']);
 
-        $file = $request->file('image_url');
-        $path = 'items/' . $file->hashName();
-        $file->move(public_path('images/items'), basename($path));
-
-        $data['image_url'] = $path;
+        $data['image_url'] = $request->file('image_url')->store('items', 'public');
         $data['status'] = 1;
 
-        DB::transaction(function() use ($data, $categoryIds) {
+        DB::transaction(function () use ($data, $categoryIds) {
             $item = Auth::user()->items()->create($data);
             $item->categories()->sync($categoryIds);
         });
