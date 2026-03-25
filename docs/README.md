@@ -103,6 +103,10 @@ DB_PORT=3306
 DB_DATABASE=laravel_flea_market_db
 DB_USERNAME=laravel_flea_market_user
 DB_PASSWORD=laravel_flea_market_pass
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
 ```
 
 #### 4. データベース初期化
