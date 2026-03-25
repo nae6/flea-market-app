@@ -9,6 +9,7 @@
     <div class="detail__img">
         <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
     </div>
+
     <div class="detail__content">
         <h1 class="detail__title">{{ $item->item_name }}</h1>
         <p class="detail__brand">{{ $item->brand }}</p>
@@ -31,6 +32,7 @@
             </div>
         </div>
         <a href="{{ route('buy', $item) }}" class="link__btn form__btn-submit">購入手続きへ</a>
+
         <div class="detail__content">
             <h2>商品説明</h2>
             <p>{{ $item->description }}</p>
@@ -48,7 +50,6 @@
                 <p>{{ $item->condition->condition_name }}</p>
             </div>
         </div>
-
         <div class="comment-wrapper">
             <h2>コメント(<span>{{ $item->comments_count }}</span>)</h2>
             @forelse ($comments as $comment)

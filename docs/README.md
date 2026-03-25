@@ -174,4 +174,3 @@ php artisan db:seed
 - Livewireを用いたアップロード画像の即時反映の実装
 - try-catch構文を用いたエラーへの対応
 - エラーページのカスタム
-- Model内に記述した定数のEnumsへの移行
