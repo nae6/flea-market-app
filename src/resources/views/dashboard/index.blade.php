@@ -14,6 +14,7 @@
         <a href="{{ route('index') }}" class="tab__item {{ $activeTab === 'recommend' ? 'active' : '' }}">おすすめ</a>
         <a href="{{ request()->fullUrlWithQuery(['tab' => 'mylist']) }}" class="tab__item {{ $activeTab === 'mylist' ? 'active' : '' }}">マイリスト</a>
     </div>
+
     <div class="tab__content">
         <div class="items  {{ $activeTab === 'recommend' ? 'is-active' : '' }}">
             @forelse ($items as $item)
