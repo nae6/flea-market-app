@@ -15,7 +15,7 @@ class ItemsTableSeeder extends Seeder
         $items = [
             [
                 'item_name' => '腕時計',
-                'image_url' => 'items/watch.jpg',
+                'image_url' => 'sample-images/watch.jpg',
                 'brand' => 'Rolax',
                 'price' => 15000,
                 'condition_id' => 1,
@@ -25,7 +25,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'HDD',
-                'image_url' => 'items/hdd.jpg',
+                'image_url' => 'sample-images/hdd.jpg',
                 'brand' => '西芝',
                 'price' => 5000,
                 'condition_id' => 2,
@@ -35,7 +35,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => '玉ねぎ3束',
-                'image_url' => 'items/onion.jpg',
+                'image_url' => 'sample-images/onion.jpg',
                 'brand' => null,
                 'price' => 300,
                 'condition_id' => 3,
@@ -45,7 +45,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => '革靴',
-                'image_url' => 'items/shoes.jpg',
+                'image_url' => 'sample-images/shoes.jpg',
                 'brand' => null,
                 'price' => 4000,
                 'condition_id' => 4,
@@ -55,7 +55,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'ノートPC',
-                'image_url' => 'items/laptop.jpg',
+                'image_url' => 'sample-images/laptop.jpg',
                 'brand' => null,
                 'price' => 45000,
                 'condition_id' => 1,
@@ -65,7 +65,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'マイク',
-                'image_url' => 'items/mic.jpg',
+                'image_url' => 'sample-images/mic.jpg',
                 'brand' => null,
                 'price' => 8000,
                 'condition_id' => 2,
@@ -75,7 +75,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'ショルダーバッグ',
-                'image_url' => 'items/bag.jpg',
+                'image_url' => 'sample-images/bag.jpg',
                 'brand' => null,
                 'price' => 3500,
                 'condition_id' => 3,
@@ -85,7 +85,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'タンブラー',
-                'image_url' => 'items/tumbler.jpg',
+                'image_url' => 'sample-images/tumbler.jpg',
                 'brand' => null,
                 'price' => 500,
                 'condition_id' => 4,
@@ -95,7 +95,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'コーヒーミル',
-                'image_url' => 'items/mill.jpg',
+                'image_url' => 'sample-images/mill.jpg',
                 'brand' => 'Starbacks',
                 'price' => 4000,
                 'condition_id' => 1,
@@ -105,7 +105,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'item_name' => 'メイクセット',
-                'image_url' => 'items/makeup.jpg',
+                'image_url' => 'sample-images/makeup.jpg',
                 'brand' => null,
                 'price' => 2500,
                 'condition_id' => 2,

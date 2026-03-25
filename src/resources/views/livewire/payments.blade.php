@@ -1,6 +1,6 @@
 <div class="buy-wrapper">
     <div class="buy__info buy__item">
-        <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+        <img src="{{ $item->getImageUrl() }}" alt="{{ $item->item_name }}">
         <div>
             <p class="buy__item-name">{{ $item->item_name }}</p>
             <p class="buy__item-price">¥ {{ number_format($item->price) }}</p>
@@ -23,7 +23,7 @@
         </div>
         <p class="shipping-address__detail">
             〒 {{ session('shipping.zip_code') ?? optional($profile)->zip_code ?? '' }}<br>
-            {{ session('shipping.address') ?? optional($profile)->address ?? '' }} 
+            {{ session('shipping.address') ?? optional($profile)->address ?? '' }}
             {{ session('shipping.building') ?? optional($profile)->building ?? '' }}
         </p>
         @error('shipping')
