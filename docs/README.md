@@ -96,24 +96,21 @@ php artisan key:generate
 
 - 必要な環境変数を設定してください
 
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel_flea_market_db
-DB_USERNAME=laravel_flea_market_user
-DB_PASSWORD=laravel_flea_market_pass
+DB_CONNECTION=mysql  
+DB_HOST=mysql  
+DB_PORT=3306  
+DB_DATABASE=laravel_flea_market_db  
+DB_USERNAME=laravel_flea_market_user  
+DB_PASSWORD=laravel_flea_market_pass  
 
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
+MAIL_MAILER=smtp  
+MAIL_HOST=mailhog  
+MAIL_PORT=1025  
 
 - Stripe APIキー（各自取得後、.envへ記載してください）
 
-STRIPE_KEY=
-STRIPE_SECRET=
-
-※StripeのAPIキーは以下から取得できます
-<https://dashboard.stripe.com/test/apikeys>
+StripeのAPIキーは以下から取得できます  
+<https://dashboard.stripe.com/test/apikeys>  
 ※「Viewing test data」をONにして取得してください
 
 - 設定後はキャッシュをクリアしてください
