@@ -177,7 +177,7 @@ php artisan storage:link
 - FormRequestによるバリデーションの分離
 - Eloquentのリレーション・Scopeの活用
 - 可読性を意識したController設計
-- 画像選択後のメッセージ表示
+- Livewireを用いた、支払い方法選択を即時画面に反映する非同期UIの実装
 
 ---
 
@@ -193,4 +193,4 @@ php artisan storage:link
 
 - Livewireを用いたアップロード画像の即時反映の実装
 - try-catch構文を用いたエラーへの対応
-- エラーページのカスタマイズ
+- エラーページのカスタム
