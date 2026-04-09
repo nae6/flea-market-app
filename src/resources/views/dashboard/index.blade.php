@@ -23,12 +23,10 @@
                 <p class="item__name">{{ $item->item_name }}</p>
             </a>
             @empty
-            <div></div>
             @endforelse
         </div>
         <div class="items {{ $activeTab === 'mylist' ? 'is-active' : '' }}">
             @if (auth()->guest())
-            <div></div>
             @else
             @forelse ($items as $item)
             <a href="{{ route('items.show', $item) }}" class="item__card link__btn {{ $item->status === 2 ? 'sold' : '' }}">
@@ -36,7 +34,6 @@
                 <p class="item__name">{{ $item->item_name }}</p>
             </a>
             @empty
-            <div></div>
             @endforelse
             @endif
         </div>

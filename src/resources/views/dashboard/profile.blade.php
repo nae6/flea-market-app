@@ -66,11 +66,11 @@
 </div>
 
 <script>
-document.getElementById('avatar').addEventListener('change', function() {
-
+document.getElementById('avatar').addEventListener('change', function()
+{
     const message = document.getElementById('image-message');
-
-    if (this.files.length > 0) {
+    if (this.files.length > 0)
+    {
         message.textContent = "画像が選択されました";
     }
 });

@@ -11,7 +11,6 @@
             @if ($profile?->avatar_url)
             <img src="{{ asset('storage/' . $profile->avatar_url) }}" alt="avatar">
             @else
-            <div></div>
             @endif
         </div>
         <p class="profile-name">{{ $profile->user_name ?? $user->name }}</p>
@@ -33,7 +32,6 @@
                 <p class="item__name">{{ $sell_item->item_name }}</p>
             </div>
             @empty
-            <div></div>
             @endforelse
         </div>
         @elseif ($activePage === 'buy')
@@ -44,7 +42,6 @@
                 <p class="item__name">{{ $buy_item->item->item_name }}</p>
             </div>
             @empty
-            <div></div>
             @endforelse
         </div>
         @endif
