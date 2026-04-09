@@ -16,7 +16,7 @@ class CommentController extends Controller
      * @param Item $item
      * @return RedirectResponse
      */
-    public function store(CommentRequest $request, Item $item)
+    public function store(CommentRequest $request, Item $item): RedirectResponse
     {
         $validated = $request->validated();
 

@@ -14,7 +14,7 @@ class FavoriteController extends Controller
      * @param Item $item
      * @return RedirectResponse
      */
-    public function toggle(Item $item)
+    public function toggle(Item $item): RedirectResponse
     {
         $item->favorites()->toggle(Auth::id());
 

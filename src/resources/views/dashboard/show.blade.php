@@ -11,7 +11,7 @@
     </div>
 
     <div class="detail__content">
-        <h1 class="detail__title">{{ $item->item_name }}</h1>
+        <h2 class="detail__title">{{ $item->item_name }}</h2>
         <p class="detail__brand">{{ $item->brand }}</p>
         <p class="detail__price">¥<span>{{ number_format($item->price) }}</span> (税込)</p>
         <div class="detail__icons">
@@ -34,13 +34,13 @@
         <a href="{{ route('buy', $item) }}" class="link__btn form__btn-submit">購入手続きへ</a>
 
         <div class="detail__content">
-            <h2>商品説明</h2>
+            <h3>商品説明</h3>
             <p>{{ $item->description }}</p>
         </div>
         <div class="detail__content">
-            <h2>商品の情報</h2>
+            <h3>商品の情報</h3>
             <div class="detail__info">
-                <h3>カテゴリー</h3>
+                <h4>カテゴリー</h4>
                 @foreach ($item->categories as $category)
                 <p class="detail__category">{{ $category->category_name }}</p>
                 @endforeach
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="comment-wrapper">
-            <h2>コメント(<span>{{ $item->comments_count }}</span>)</h2>
+            <h3>コメント(<span>{{ $item->comments_count }}</span>)</h3>
             @forelse ($comments as $comment)
             <div class="comment__list">
                 <div class="profile-header">
@@ -59,7 +59,6 @@
                         @if ($comment->user?->profile?->avatar_url)
                         <img src="{{ asset('storage/' . $comment->user->profile->avatar_url) }}" alt="avatar">
                         @else
-                        <div></div>
                         @endif
                     </div>
                     <span class="profile-name">{{ $comment->user->name }}</span>
