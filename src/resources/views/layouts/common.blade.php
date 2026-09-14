@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,33 @@
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     @yield('css')
+    @yield('script')
 </head>
 
 <body>
     <header class="header">
         <div class="header__inner">
-            <div>
-                <a href="/" class="header__logo">COACHTECH</a>
-            </div>
+            <a href="/" class="header__logo">
+                <img src="{{ asset('images/header_logo.png') }}" alt="coachtech logo">
+            </a>
+            @if (!request()->routeIs('login', 'register', 'verification.notice'))
+            <form action="{{ route('index') }}" method="GET" class="header__search">
+                <input type="search" name="keyword" value="{{ $keyword ?? '' }}" placeholder="なにをお探しですか？" class="search__input">
+                @yield('search_extra')
+            </form>
+            <nav class="header__nav">
+                @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit">ログアウト</button>
+                </form>
+                @else
+                <a href="{{ route('login') }}" class="nav_link">ログイン</a>
+                @endauth
+                <a href="{{ route('mypage') }}" class="nav_link">マイページ</a>
+                <a href="{{ route('sell') }}">出品</a>
+            </nav>
+            @endif
         </div>
     </header>
 
@@ -27,6 +47,7 @@
             @yield('content')
         </div>
     </main>
+    @livewireScripts
 </body>
 
 </html>

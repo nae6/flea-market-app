@@ -9,13 +9,14 @@
 }
 
 .form__group {
-    margin-bottom: 30px;
+    margin: 30px 0;
     width: 100%;
     text-align: left;
 }
 
 .form__label {
     font-weight: bold;
+    font-size: 24px;
 }
 
 /* img part */
@@ -27,10 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.upload__input {
-    display: none;
+    flex-direction: column;
 }
 
 .upload__btn {
@@ -42,6 +40,11 @@
     user-select: none;
 }
 
+.form__message {
+    color: #f55;
+    margin: 0;
+}
+
 /* info part */
 .item__info {
     width: 100%;
@@ -49,9 +52,10 @@
 }
 
 .info-title {
+    margin: 50px 0;
     padding: 7px 0;
     color: #5f5f5f;
-    font-size: 22px;
+    font-size: 30px;
     border-bottom: 1px solid #5f5f5f;
 }
 
@@ -59,10 +63,14 @@
 .form__radio {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px 14px;
+    gap: 30px 20px;
     padding-left: 5px;
     margin: 20px 0;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.category-wrapper {
+    padding-bottom: 10px;
 }
 
 .category input {
@@ -75,7 +83,7 @@
     border: 2px solid #f55;
     border-radius: 100px;
     color: #f55;
-    font-size: 12px;
+    font-size: 15px;
     cursor: pointer;
     user-select: none;
 }
@@ -87,53 +95,70 @@
 
 .form__content {
     width: 100%;
-    margin: 20px 0;
+    margin-top: 20px;
+}
+
+/* ▼の疑似矢印 */
+.select__wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select__wrapper::after {
+    content: "▼";
+    color: #5f5f5f;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .item_condition {
     display: inline-block;
     width: 100%;
+    height: 45px;
     padding: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-/* ▼の疑似矢印 未完了 */
-.select__arrow {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    width: 0;
-    height: 0;
-    transform: translateY(-35%);
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 10px solid #6f6f6f;
-    pointer-events: none;
+.placeholder {
+    color: #5f5f5f;
 }
 
+/* 商品名と説明パート */
 .form__content input {
     padding: 10px;
     width: 100%;
-    height: 40px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    height: 45px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
     appearance: none;
 }
 
 .form__content textarea {
     padding: 10px;
     width: 100%;
-    height: 100px;
+    height: 125px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
 }
 
 .price__input {
     position: relative;
     display: inline-block;
     width: 100%;
+    height: 45px;
 }
 
 .price__input input {
     padding: 10px;
+    padding-left: 30px;
     width: 100%;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
 }
 
 .price__input::before {
@@ -159,13 +184,14 @@
 }
 
 .form__btn-submit {
+    margin: 50px 0;
     padding: 10px;
     width: 100%;
     border: none;
     border-radius: 3px;
     background: #f55;
     color: #fff;
-    font-size: 18px;
+    font-size: 26px;
     font-weight: bold;
     cursor: pointer;
 }
