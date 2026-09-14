@@ -22,7 +22,7 @@ class AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'zip_code' => 'required|string|regex:/^\d{3}-\d{4}$/',
+            'zip_code' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'required|string|max:255',
             'building' => 'nullable',
         ];

@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -37,31 +41,50 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
+    protected function casts(): array {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
 
-    public function items()
+    /**
+     * 出品した商品
+     */
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }
 
-    public function favorites()
+    /**
+     * お気に入り登録した商品
+     */
+    public function favorites(): BelongsToMany
     {
         return $this->belongsToMany(Item::class, 'favorites', 'user_id', 'item_id')->withTimestamps();
     }
 
-    public function boughtItems()
+    /**
+     * 投稿したコメント
+     */
+    public function comments(): HasMany
     {
-        return $this->belongsToMany(Item::class, 'orders', 'buyer_id', 'item_id');
+        return $this->hasMany(Comment::class);
     }
 
-    public function profile()
-{
-    return $this->hasOne(Profile::class);
-}
+    /**
+     * 購入履歴
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
+    }
+
+    /**
+     * プロフィール
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

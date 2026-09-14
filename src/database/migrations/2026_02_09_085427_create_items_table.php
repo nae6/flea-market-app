@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->string('item_name');
             $table->string('image_url')->nullable();
             $table->string('brand')->nullable();
             $table->unsignedInteger('price');
-            $table->unsignedTinyInteger('condition');
+            $table->foreignId('condition_id')
+                ->constrained()
+                ->onDelete('restrict');
             $table->text('description');
             $table->unsignedTinyInteger('status')->default(1);
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Item;
 use App\Models\User;
 
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'buyer_id',
         'item_id',
@@ -21,13 +24,17 @@ class Order extends Model
         'status',
     ];
 
-    public function buyer()
-    {
+    /**
+     * users_tableと1対多のリレーション
+     */
+    public function buyer() {
         return $this->belongsTo(User::class, 'buyer_id');
     }
 
-    public function item()
-    {
-        return $this->hasTo(Item::class);
+    /**
+     * items_tableと1対1のリレーション
+     */
+    public function item() {
+        return $this->belongsTo(Item::class);
     }
 }
