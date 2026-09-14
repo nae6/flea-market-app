@@ -1,0 +1,137 @@
+.buy-wrapper {
+    margin: 80px 6% 200px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 230px 180px 230px;
+    column-gap: 6%;
+}
+
+.buy__info {
+    border-bottom: 1px solid #000;
+}
+
+/* item */
+.buy__item {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8%;
+}
+
+.buy__item img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    background-color: #ddd;
+}
+
+.buy__item-name {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.buy__item-price {
+    font-size: 30px;
+    margin: 20px 0;
+}
+
+/* payment */
+.buy__payment {
+    margin-top: 20px;
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.payment__title,
+.shipping__title {
+    display: block;
+    margin: 20px 30px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.payment__select {
+    width: 30%;
+    padding: 5px 2px;
+    margin-left: 90px;
+}
+
+/* shipping */
+.buy__shipping {
+    margin-top: 20px;
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+
+.shipping {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shipping a {
+    margin: 0 30px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #0073cc;
+    text-decoration: none;
+}
+
+.shipping-address__detail {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 90px;
+}
+
+/* confirmation */
+.buy__confirm {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+.buy__confirm table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+}
+
+.table__row{
+    border: 1px solid #000;
+}
+
+.table__row th,
+.table__row td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table__row th {
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.table__row td {
+    font-size: 24px;
+    text-align: center;
+}
+
+/* button */
+.buy__btn {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    align-self: center;
+}
+
+.form__btn-submit {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    background: #f55;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+}
