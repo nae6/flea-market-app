@@ -152,4 +152,16 @@ class Item extends Model
 
         return Storage::url($this->image_url);
     }
+
+    /**
+     * scope for buy
+     */
+    public function scopeBuy(Builder $query, int $userId): Builder
+    {
+        return $query->whereHas('favorites',
+            function (Builder $q) use ($userId)
+            {
+                $q->where('users.id', $userId);
+            });
+    }
 }
