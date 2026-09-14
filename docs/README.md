@@ -49,6 +49,10 @@ Laravelで作成したフリマアプリです。
 - users
 - items
 - categories
+- conditions
+- comments
+- addresses
+- flags
 - orders
 - profiles
 
