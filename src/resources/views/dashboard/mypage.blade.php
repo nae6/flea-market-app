@@ -29,7 +29,7 @@
         <div class="items  {{ $activePage === 'sell' ? 'is-active' : '' }}">
             @forelse ($items as $sell_item)
             <div class="item__card link__btn {{ $sell_item->status === 2 ? 'sold' : '' }}">
-                <img src="{{ $item->getImageUrl() }}" alt="{{ $item->item_name }}">
+                <img src="{{ $sell_item->getImageUrl() }}" alt="{{ $sell_item->item_name }}">
                 <p class="item__name">{{ $sell_item->item_name }}</p>
             </div>
             @empty
@@ -40,7 +40,7 @@
         <div class="items {{ $activePage === 'buy' ? 'is-active' : '' }}">
             @forelse ($items as $buy_item)
             <div class="item__card link__btn">
-                <img src="{{ $item->getImageUrl() }}" alt="{{ $item->item_name }}">
+                <img src="{{ $buy_item->item->getImageUrl() }}" alt="{{ $buy_item->item->item_name }}">
                 <p class="item__name">{{ $buy_item->item->item_name }}</p>
             </div>
             @empty
