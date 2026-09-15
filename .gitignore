@@ -1,3 +1,6 @@
+# Docker Compose credentials (see .env.example)
+/.env
+
 # Docker volumes / local data (must never be committed)
 docker/mysql/data/
 docker/**/data/
