@@ -18,15 +18,15 @@ Laravelで作成したフリマアプリです。
 
 ## 使用技術
 
-- PHP: 8.4.17
-- Laravel: 12.51.0
+- PHP: 8.4系
+- Laravel: 12.69.2
 - DB: MySQL
 - MySQL: 8.0
 - nginx: 1.28.1
 - View: Blade
 - Docker / Docker Compose
-- stripe version 1.35.0
-- Livewire: 4.1.2
+- Stripe（stripe-php: v21.3.2 / Laravel Cashier: v16.8.0）
+- Livewire: 4.4.5
 
 ---
 
@@ -49,10 +49,10 @@ Laravelで作成したフリマアプリです。
 - users
 - items
 - categories
+- category_item
 - conditions
 - comments
-- addresses
-- flags
+- favorites
 - orders
 - profiles
 
@@ -71,13 +71,24 @@ git clone https://github.com/nae6/flea-market-app.git
 cd flea-market-app
 ```
 
-### 2. Dockerビルド
+### 2. Docker用の環境変数ファイルを作成
+
+MySQL / phpMyAdminの認証情報は、リポジトリ直下の `.env`（gitignore対象）で管理しています。
+
+```bash
+cp .env.example .env
+```
+
+- 生成された `.env` の `MYSQL_ROOT_PASSWORD` / `MYSQL_PASSWORD` を任意の値に書き換えてください
+- ここで設定した `MYSQL_DATABASE` / `MYSQL_USER` / `MYSQL_PASSWORD` は、後述の `src/.env` の `DB_DATABASE` / `DB_USERNAME` / `DB_PASSWORD` と一致させる必要があります
+
+### 3. Dockerビルド
 
 ```bash
 docker compose up -d --build
 ```
 
-### 3. Laravel環境構築
+### 4. Laravel環境構築
 
 #### 1. PHPコンテナに入る
 
@@ -93,19 +104,21 @@ composer install
 
 #### 3. .env作成
 
+PHPコンテナ内（`src/`）で、Laravelアプリ用の `.env` を作成します。
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-- 必要な環境変数を設定してください
+- 必要な環境変数を設定してください（`DB_PASSWORD` はリポジトリ直下の `.env` で設定した `MYSQL_PASSWORD` と同じ値にしてください）
 
 DB_CONNECTION=mysql  
 DB_HOST=mysql  
 DB_PORT=3306  
 DB_DATABASE=laravel_flea_market_db  
 DB_USERNAME=laravel_flea_market_user  
-DB_PASSWORD=laravel_flea_market_pass  
+DB_PASSWORD=（手順2で設定した MYSQL_PASSWORD と同じ値）  
 
 MAIL_MAILER=smtp  
 MAIL_HOST=mailhog  
