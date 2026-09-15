@@ -144,7 +144,7 @@ class ItemViewTest extends TestCase
         Item::factory()->create(['item_name' => '青い服',]);
         Item::factory()->create(['item_name' => 'パソコン',]);
 
-        $response = $this->get('/?keyword=服');
+        $response = $this->get('/?keyword=' . rawurlencode('服'));
 
         $response->assertSee('赤い服');
         $response->assertSee('青い服');
@@ -180,7 +180,7 @@ class ItemViewTest extends TestCase
             $pc->id,
         ]);
 
-        $response = $this->actingAs($user)->get('/?tab=mylist&keyword=服');
+        $response = $this->actingAs($user)->get('/?tab=mylist&keyword=' . rawurlencode('服'));
 
         $response->assertOk();
         $response->assertSee('赤い服');
