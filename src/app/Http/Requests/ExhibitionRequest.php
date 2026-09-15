@@ -21,10 +21,10 @@ class ExhibitionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'item_name' => 'required|string',
-            'image_url' => 'required|image|mimes:jpeg,png',
-            'brand' => 'nullable',
-            'price' => 'required|numeric|min:0',
+            'item_name' => 'required|string|max:255',
+            'image_url' => 'required|image|mimes:jpeg,png|max:2048',
+            'brand' => 'nullable|string|max:255',
+            'price' => 'required|numeric|min:0|max:9999999',
             'condition_id' => 'required|integer|exists:conditions,id',
             'description' => 'required|string|max:255',
             'categories' => 'required|array|min:1',
@@ -39,8 +39,11 @@ class ExhibitionRequest extends FormRequest
             'image_url.required' => '画像を選択してください',
             'image_url.image' => '画像を選択してください',
             'image_url.mimes' => 'ファイルはjpegまたはpng形式にしてください',
+            'image_url.max' => '画像ファイルは2MB以内にしてください',
+            'item_name.max' => '商品名は255文字以内で入力してください',
             'price.required' => '商品の金額を入力してください',
             'price.min' => '価格は０円以上で入力してください',
+            'price.max' => '価格が上限を超えています',
             'condition_id.required' => '商品の状態を選択してください',
             'condition_id.integer' => '選択した商品の状態が不正です',
             'description.required' => '商品の説明を入力してください',

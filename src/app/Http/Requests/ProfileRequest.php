@@ -23,7 +23,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             // 内容書き換える
-            'avatar_url' => 'nullable|image|mimes:jpeg,png',
+            'avatar_url' => 'nullable|image|mimes:jpeg,png|max:2048',
             'user_name' => 'required|string|max:20',
             'zip_code' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'required|string',
@@ -36,6 +36,7 @@ class ProfileRequest extends FormRequest
         return [
             'avatar_url.image' => '画像ファイルを選択してください',
             'avatar_url.mimes' => '画像はjpegまたはpng形式でアップロードしてください。',
+            'avatar_url.max' => '画像ファイルは2MB以内にしてください',
             'user_name.required' => 'ユーザー名を入力してください',
             'user_name.max' => 'ユーザー名は20文字以内で入力してください',
             'zip_code.required' => '郵便番号を入力してください。',
